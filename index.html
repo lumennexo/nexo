@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="LUMEN NEXO — Automatización por demanda para negocios, profesionales y emprendedores. Un producto de LUMEN."/>
+  <title>LUMEN NEXO — Automatización por demanda</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet"/>
+  <style>
+    /* ══════════════════════════════════════
+       TOKENS
+    ═══════════════════════════════════════ */
+    :root {
+      --bg:       #0c0b14;
+      --surface:  #121120;
+      --card:     #17162a;
+      --border:   rgba(255,255,255,.07);
+      --white:    #f2f0f8;
+      --fog:      #6e6c84;
+      --mist:     #9e9cb8;
+      --copper:   #c8784a;
+      --copper2:  #e09a6a;
+      --copper3:  rgba(200,120,74,.12);
+      --violet:   #7c5cbf;
+      --violet2:  rgba(124,92,191,.15);
+      --indigo:   #4f46e5;
+      --teal:     #16a090;
+      --amber:    #d4924a;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Lora', serif;
+      font-weight: 400;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* ── CURSOR ── */
+    #cur {
+      position:fixed; z-index:9999; pointer-events:none;
+      width:10px; height:10px; border-radius:50%;
+      background:var(--copper); mix-blend-mode:screen;
+      will-change:transform; transition:width .2s, height .2s;
+    }
+    #ring {
+      position:fixed; z-index:9998; pointer-events:none;
+      width:36px; height:36px; border-radius:50%;
+      border:1px solid rgba(200,120,74,.35);
+      will-change:transform;
+    }
+
+    /* ── NOISE OVERLAY ── */
+    body::after {
+      content:''; position:fixed; inset:0; pointer-events:none; z-index:900;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+      opacity:.028;
+    }
+
+    /* ══════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════ */
+    nav {
+      position:fixed; top:0; width:100%; z-index:500;
+      display:flex; justify-content:space-between; align-items:center;
+      padding:1.4rem 5rem;
+      transition:background .5s, border-color .5s;
+    }
+    nav.stuck {
+      background:rgba(12,11,20,.92);
+      backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-logo {
+      display:flex; align-items:center; gap:.6rem;
+      font-family:'Syne',sans-serif; font-size:1rem; font-weight:700;
+      letter-spacing:.1em; text-transform:uppercase;
+      color:var(--white); text-decoration:none;
+    }
+    .nav-pip {
+      width:6px; height:6px; border-radius:50%;
+      background:var(--copper); box-shadow:0 0 10px var(--copper);
+      animation:pipAnim 2.8s ease-in-out infinite;
+    }
+    @keyframes pipAnim { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.6)} }
+    .nav-parent { color:var(--fog); font-weight:400; }
+
+    .nav-links { display:flex; gap:2.2rem; list-style:none; }
+    .nav-links a {
+      font-family:'Syne',sans-serif; font-size:.72rem;
+      letter-spacing:.12em; text-transform:uppercase;
+      color:var(--fog); text-decoration:none; transition:color .2s;
+    }
+    .nav-links a:hover { color:var(--white); }
+
+    .nav-cta {
+      font-family:'Syne',sans-serif; font-size:.72rem;
+      letter-spacing:.12em; text-transform:uppercase;
+      padding:.55rem 1.4rem; border:1px solid rgba(200,120,74,.4);
+      background:none; color:var(--copper); cursor:pointer;
+      transition:background .2s, color .2s;
+    }
+    .nav-cta:hover { background:var(--copper); color:var(--bg); }
+
+    /* ══════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════ */
+    .hero {
+      min-height:100vh;
+      display:grid; grid-template-columns:55% 45%;
+      align-items:center;
+      padding:9rem 5rem 5rem;
+      position:relative; overflow:hidden;
+    }
+
+    /* Grid lines */
+    .hero-grid {
+      position:absolute; inset:0; pointer-events:none;
+      background-image:
+        linear-gradient(rgba(200,120,74,.04) 1px,transparent 1px),
+        linear-gradient(90deg,rgba(200,120,74,.04) 1px,transparent 1px);
+      background-size:72px 72px;
+      mask-image:radial-gradient(ellipse 75% 80% at 65% 50%,#000 15%,transparent 80%);
+    }
+
+    /* Orbs */
+    .orb {
+      position:absolute; border-radius:50%; pointer-events:none;
+      filter:blur(100px); animation:orbFloat ease-in-out infinite alternate;
+    }
+    .orb1 { width:600px;height:600px; top:-150px;right:-100px; background:rgba(200,120,74,.1); animation-duration:16s; }
+    .orb2 { width:400px;height:400px; bottom:-100px;left:-80px; background:rgba(124,92,191,.08); animation-duration:12s;animation-delay:-6s; }
+    .orb3 { width:300px;height:300px; top:40%;right:25%; background:rgba(79,70,229,.06); animation-duration:19s;animation-delay:-3s; }
+    @keyframes orbFloat { from{transform:translate(0,0)scale(1)} to{transform:translate(24px,16px)scale(1.08)} }
+
+    .hero-left { position:relative; z-index:2; }
+
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:.55rem;
+      font-family:'Syne',sans-serif; font-size:.65rem;
+      letter-spacing:.22em; text-transform:uppercase;
+      color:var(--copper); border:1px solid rgba(200,120,74,.25);
+      padding:.36rem .9rem; margin-bottom:2.4rem; width:fit-content;
+      opacity:0; animation:heroUp .8s .1s forwards;
+    }
+    .eyebrow-dash { width:22px; height:1px; background:var(--copper); }
+
+    .hero-title {
+      font-family:'Syne',sans-serif;
+      font-size:clamp(2.2rem,5.5vw,5.5rem);
+      font-weight:800; line-height:.96;
+      letter-spacing:-.025em; margin-bottom:2rem;
+      opacity:0; animation:heroUp .9s .25s forwards;
+    }
+    .ht-outline {
+      display:block;
+      -webkit-text-stroke:1.5px rgba(200,120,74,.5);
+      color:transparent;
+    }
+    .ht-copper { display:block; color:var(--copper); }
+
+    .hero-sub {
+      font-family:'Lora',serif; font-size:1.05rem;
+      line-height:1.82; color:var(--mist);
+      max-width:50ch; margin-bottom:3rem;
+      opacity:0; animation:heroUp .9s .4s forwards;
+    }
+    .hero-sub strong { color:var(--white); font-weight:500; }
+
+    .hero-btns {
+      display:flex; gap:1rem; flex-wrap:wrap;
+      opacity:0; animation:heroUp .9s .55s forwards;
+    }
+    .btn-fill {
+      background:var(--copper); color:var(--bg); border:none;
+      padding:.95rem 2.4rem;
+      font-family:'Syne',sans-serif; font-size:.76rem;
+      font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+      cursor:pointer; transition:opacity .2s, transform .2s;
+      text-decoration:none; display:inline-block;
+    }
+    .btn-fill:hover { opacity:.82; transform:translateY(-2px); }
+    .btn-ghost {
+      background:none; border:1px solid var(--border);
+      color:var(--mist); padding:.95rem 2rem;
+      font-family:'Syne',sans-serif; font-size:.76rem;
+      letter-spacing:.1em; text-transform:uppercase;
+      cursor:pointer; transition:border-color .2s, color .2s;
+    }
+    .btn-ghost:hover { border-color:var(--white); color:var(--white); }
+
+    /* Hero right — animated logo */
+    .hero-right {
+      position:relative; z-index:2;
+      display:flex; flex-direction:column; align-items:center; gap:2.4rem;
+      opacity:0; animation:heroUp .9s .3s forwards;
+    }
+
+    .hero-sol { position:relative; }
+    @keyframes spinCW  { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+    @keyframes spinCCW { from{transform:rotate(0)} to{transform:rotate(-360deg)} }
+    @keyframes glowPulse { 0%,100%{opacity:.7;transform:scale(1)} 50%{opacity:1;transform:scale(1.1)} }
+    .spin-cw  { transform-box:fill-box; transform-origin:center; animation:spinCW  30s linear infinite; }
+    .spin-ccw { transform-box:fill-box; transform-origin:center; animation:spinCCW 22s linear infinite; }
+    .glow     { transform-box:fill-box; transform-origin:center; animation:glowPulse 3s ease-in-out infinite; }
+
+    .hero-wordmark { text-align:center; }
+    .wm-parent {
+      font-family:'Syne',sans-serif; font-size:.65rem;
+      font-weight:600; letter-spacing:.3em; text-transform:uppercase;
+      color:var(--fog); margin-bottom:.3rem;
+    }
+    .wm-name {
+      font-family:'Syne',sans-serif; font-size:2.4rem;
+      font-weight:800; letter-spacing:.1em; text-transform:uppercase;
+      color:var(--white); line-height:1;
+    }
+    .wm-name .cu { color:var(--copper); }
+    .wm-tag {
+      font-family:'Lora',serif; font-size:.75rem;
+      font-style:italic; color:var(--fog); margin-top:.4rem;
+    }
+
+    /* Float stats */
+    .hero-stats {
+      display:flex; gap:3rem;
+      opacity:0; animation:heroUp .9s 1s forwards;
+    }
+    .stat { text-align:center; }
+    .stat-v {
+      font-family:'Syne',sans-serif; font-size:2rem;
+      font-weight:800; color:var(--copper); line-height:1;
+    }
+    .stat-k {
+      font-family:'Syne',sans-serif; font-size:.6rem;
+      letter-spacing:.14em; text-transform:uppercase;
+      color:var(--fog); margin-top:.3rem;
+    }
+
+    @keyframes heroUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
+
+    /* ══════════════════════════════════════
+       MARQUEE
+    ═══════════════════════════════════════ */
+    .marquee {
+      overflow:hidden; border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border); padding:.9rem 0;
+      background:rgba(255,255,255,.02);
+    }
+    .marquee-track { display:flex; width:max-content; animation:mq 26s linear infinite; }
+    .mq-item {
+      font-family:'Syne',sans-serif; font-size:.65rem;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:var(--fog); padding:0 2.4rem; white-space:nowrap;
+    }
+    .mq-dot { color:var(--copper); padding:0 .3rem; }
+    @keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+    /* ══════════════════════════════════════
+       SECTIONS COMMON
+    ═══════════════════════════════════════ */
+    section { padding:8rem 5rem; position:relative; }
+
+    .sec-eyebrow {
+      font-family:'Syne',sans-serif; font-size:.64rem;
+      letter-spacing:.22em; text-transform:uppercase;
+      color:var(--copper); margin-bottom:.9rem;
+      display:flex; align-items:center; gap:.55rem;
+    }
+    .sec-eyebrow::before { content:''; width:18px; height:1px; background:var(--copper); }
+
+    .sec-title {
+      font-family:'Syne',sans-serif;
+      font-size:clamp(1.8rem,3.5vw,3.2rem);
+      font-weight:700; line-height:1.08;
+    }
+    .sec-title em { font-family:'Lora',serif; font-style:italic; color:var(--copper); font-weight:400; }
+
+    /* ══════════════════════════════════════
+       PROBLEMA
+    ═══════════════════════════════════════ */
+    #problema { background:var(--surface); }
+
+    .prob-grid {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:5rem; margin-top:4rem; align-items:start;
+    }
+
+    .prob-list { display:flex; flex-direction:column; gap:1rem; }
+    .prob-item {
+      display:flex; align-items:flex-start; gap:1rem;
+      padding:1.1rem 1.4rem;
+      background:rgba(255,255,255,.03);
+      border:1px solid var(--border);
+      border-left:2px solid rgba(200,120,74,.4);
+      transition:border-left-color .25s, background .25s;
+    }
+    .prob-item:hover { border-left-color:var(--copper); background:rgba(200,120,74,.05); }
+    .pi-icon { font-size:1rem; flex-shrink:0; margin-top:.1rem; }
+    .pi-text { font-family:'Lora',serif; font-size:.86rem; color:var(--mist); line-height:1.65; }
+
+    .sol-box {
+      background:var(--copper3);
+      border:1px solid rgba(200,120,74,.2);
+      padding:2.4rem; position:relative; overflow:hidden;
+    }
+    .sol-box::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg,var(--copper),var(--copper2),transparent);
+    }
+    .sol-title {
+      font-family:'Syne',sans-serif; font-size:1.1rem;
+      font-weight:700; margin-bottom:1rem; color:var(--white);
+    }
+    .sol-text { font-family:'Lora',serif; font-size:.88rem; color:var(--mist); line-height:1.8; }
+
+    /* ══════════════════════════════════════
+       QUÉ HACE
+    ═══════════════════════════════════════ */
+    #que-hace {}
+
+    .feat-grid {
+      display:grid; grid-template-columns:repeat(2,1fr);
+      gap:1px; margin-top:4rem;
+      background:var(--border);
+    }
+    .feat-card {
+      background:var(--bg); padding:2.4rem 2.2rem;
+      position:relative; overflow:hidden;
+      opacity:0; transform:translateY(18px);
+      transition:opacity .65s, transform .65s, background .3s;
+    }
+    .feat-card:hover { background:var(--card); }
+    .feat-card.vis { opacity:1; transform:translateY(0); }
+    .feat-card::before {
+      content:''; position:absolute; top:0; left:0; bottom:0; width:2px;
+      background:var(--copper); transform:scaleY(0); transform-origin:top;
+      transition:transform .4s;
+    }
+    .feat-card:hover::before { transform:scaleY(1); }
+    .fc-num {
+      font-family:'Syne',sans-serif; font-size:3rem;
+      font-weight:800; color:rgba(200,120,74,.1); line-height:1;
+      margin-bottom:1rem;
+    }
+    .fc-title {
+      font-family:'Syne',sans-serif; font-size:.92rem;
+      font-weight:600; margin-bottom:.6rem;
+    }
+    .fc-desc { font-family:'Lora',serif; font-size:.82rem; color:var(--fog); line-height:1.78; }
+
+    /* ══════════════════════════════════════
+       PROCESO
+    ═══════════════════════════════════════ */
+    #proceso { background:var(--surface); }
+
+    .steps {
+      display:grid; grid-template-columns:repeat(4,1fr);
+      gap:0; margin-top:4rem; position:relative;
+    }
+    .steps::before {
+      content:''; position:absolute; top:36px; left:8%; right:8%;
+      height:1px; background:linear-gradient(90deg,transparent,rgba(200,120,74,.3),rgba(124,92,191,.25),transparent);
+    }
+    .step {
+      padding:0 1.5rem 0 0;
+      opacity:0; transform:translateY(16px);
+      transition:opacity .6s, transform .6s;
+    }
+    .step.vis { opacity:1; transform:translateY(0); }
+    .step:not(:first-child) { padding-left:1.5rem; }
+    .step-dot {
+      width:72px; height:72px; border-radius:50%;
+      border:1px solid rgba(200,120,74,.25);
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:1.4rem; position:relative; z-index:2;
+      background:var(--surface);
+      transition:border-color .3s, background .3s;
+    }
+    .step:hover .step-dot { border-color:var(--copper); background:var(--copper3); }
+    .step-num {
+      font-family:'Syne',sans-serif; font-size:.9rem;
+      font-weight:700; color:var(--copper);
+    }
+    .step-title { font-family:'Syne',sans-serif; font-size:.88rem; font-weight:600; margin-bottom:.5rem; }
+    .step-desc  { font-family:'Lora',serif; font-size:.78rem; color:var(--fog); line-height:1.72; }
+
+    /* ══════════════════════════════════════
+       CASOS DE USO
+    ═══════════════════════════════════════ */
+    #casos {}
+
+    .casos-grid {
+      display:grid; grid-template-columns:repeat(3,1fr);
+      gap:1.5rem; margin-top:4rem;
+    }
+    .caso-card {
+      background:var(--card);
+      border:1px solid var(--border);
+      padding:2.4rem 2rem;
+      position:relative; overflow:hidden;
+      opacity:0; transform:translateY(16px);
+      transition:opacity .65s, transform .65s, border-color .3s;
+    }
+    .caso-card:hover { border-color:rgba(200,120,74,.3); transform:translateY(-4px) !important; }
+    .caso-card.vis { opacity:1; transform:translateY(0); }
+    .caso-card::before {
+      content:''; position:absolute; top:0; left:0; right:0; height:2px;
+    }
+    .caso-card:nth-child(1)::before { background:linear-gradient(90deg,var(--copper),var(--copper2)); }
+    .caso-card:nth-child(2)::before { background:linear-gradient(90deg,var(--teal),#2dd4bf); }
+    .caso-card:nth-child(3)::before { background:linear-gradient(90deg,var(--violet),var(--indigo)); }
+    .caso-tag {
+      font-family:'Syne',sans-serif; font-size:.58rem;
+      letter-spacing:.16em; text-transform:uppercase;
+      padding:.2rem .65rem; border-radius:2px; margin-bottom:1rem;
+      display:inline-block;
+    }
+    .ct-copper { background:var(--copper3); border:1px solid rgba(200,120,74,.25); color:var(--copper); }
+    .ct-teal   { background:rgba(22,160,144,.1); border:1px solid rgba(22,160,144,.25); color:var(--teal); }
+    .ct-violet { background:var(--violet2); border:1px solid rgba(124,92,191,.25); color:#a78bfa; }
+    .caso-name { font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; margin-bottom:.2rem; letter-spacing:-.01em; }
+    .caso-sub  { font-family:'Lora',serif; font-size:.74rem; font-style:italic; color:var(--fog); margin-bottom:.9rem; }
+    .caso-desc { display:none; }
+    .caso-feats { display:grid; grid-template-columns:1fr 1fr; gap:.45rem; margin-top:.9rem; border-top:1px solid var(--border); padding-top:.9rem; }
+    .cf-item { display:flex; align-items:flex-start; gap:.5rem; font-family:'Syne',sans-serif; font-size:.68rem; letter-spacing:.02em; color:var(--mist); line-height:1.45; }
+    .cf-dot { width:4px; height:4px; border-radius:50%; flex-shrink:0; margin-top:.38em; }
+
+    /* ══════════════════════════════════════
+       ECOSISTEMA
+    ═══════════════════════════════════════ */
+    #ecosistema { background:var(--surface); }
+
+    .eco-intro {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:4rem; align-items:center; margin-top:4rem;
+    }
+    .eco-text {}
+    .eco-desc { font-family:'Lora',serif; font-size:.95rem; color:var(--mist); line-height:1.85; margin-top:1.2rem; }
+
+    .eco-products { display:flex; flex-direction:column; gap:1rem; }
+    .eco-product {
+      display:flex; align-items:center; gap:1.2rem;
+      padding:1.2rem 1.4rem;
+      background:var(--bg); border:1px solid var(--border);
+      transition:border-color .25s, background .25s;
+    }
+    .eco-product:hover { border-color:rgba(200,120,74,.3); background:var(--copper3); }
+    .ep-icon { flex-shrink:0; }
+    .ep-info {}
+    .ep-name { font-family:'Syne',sans-serif; font-size:.9rem; font-weight:700; margin-bottom:.15rem; }
+    .ep-line { font-family:'Lora',serif; font-size:.74rem; font-style:italic; color:var(--fog); }
+    .ep-badge {
+      margin-left:auto; flex-shrink:0;
+      font-family:'Syne',sans-serif; font-size:.58rem; letter-spacing:.12em; text-transform:uppercase;
+      padding:.2rem .65rem; border-radius:2px;
+    }
+    .badge-nexo    { background:var(--copper3); border:1px solid rgba(200,120,74,.25); color:var(--copper); }
+    .badge-edu     { background:rgba(22,160,144,.1); border:1px solid rgba(22,160,144,.2); color:var(--teal); }
+    .badge-indigo  { background:rgba(79,70,229,.1); border:1px solid rgba(79,70,229,.2); color:#818cf8; }
+
+    /* ══════════════════════════════════════
+       CTA
+    ═══════════════════════════════════════ */
+    #cta {
+      text-align:center; padding:10rem 5rem;
+      position:relative; overflow:hidden;
+    }
+    #cta::before {
+      content:''; position:absolute; inset:0; pointer-events:none;
+      background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(200,120,74,.08) 0%,transparent 70%);
+    }
+    .cta-bg-word {
+      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
+      font-family:'Syne',sans-serif; font-size:20vw; font-weight:800;
+      color:rgba(200,120,74,.04); pointer-events:none; user-select:none;
+      white-space:nowrap; line-height:1;
+    }
+    .cta-title {
+      font-family:'Syne',sans-serif;
+      font-size:clamp(2.2rem,5.5vw,5rem);
+      font-weight:800; line-height:1.02; margin-bottom:1.4rem;
+      position:relative; z-index:1;
+    }
+    .cta-title em { font-family:'Lora',serif; font-style:italic; color:var(--copper); font-weight:400; }
+    .cta-sub {
+      font-family:'Lora',serif; font-size:.95rem; color:var(--mist);
+      margin-bottom:3rem; max-width:46ch; margin-left:auto; margin-right:auto;
+      position:relative; z-index:1;
+    }
+    .cta-form {
+      display:inline-flex; border:1px solid rgba(200,120,74,.3);
+      overflow:hidden; max-width:480px; width:100%;
+      position:relative; z-index:1;
+    }
+    .cta-form input {
+      flex:1; border:none; background:rgba(200,120,74,.06);
+      outline:none; padding:.95rem 1.4rem;
+      font-family:'Lora',serif; font-size:.88rem; color:var(--white);
+    }
+    .cta-form input::placeholder { color:var(--fog); }
+    .cta-form button {
+      background:var(--copper); color:var(--bg); border:none;
+      padding:.95rem 1.8rem;
+      font-family:'Syne',sans-serif; font-size:.72rem;
+      font-weight:600; letter-spacing:.1em; text-transform:uppercase;
+      cursor:pointer; white-space:nowrap; transition:opacity .2s;
+    }
+    .cta-form button:hover { opacity:.82; }
+
+    /* ══════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════ */
+    footer {
+      border-top:1px solid var(--border);
+      padding:2.4rem 5rem;
+      display:flex; justify-content:space-between; align-items:center;
+    }
+    .foot-left { display:flex; align-items:center; gap:.8rem; }
+    .foot-name {
+      font-family:'Syne',sans-serif; font-size:1rem;
+      font-weight:700; letter-spacing:.08em;
+    }
+    .foot-name span { color:var(--copper); }
+    .foot-sep { color:var(--border); }
+    .foot-tag { font-family:'Lora',serif; font-size:.74rem; font-style:italic; color:var(--fog); }
+    .foot-copy { font-family:'Syne',sans-serif; font-size:.64rem; letter-spacing:.08em; color:var(--fog); }
+
+    /* ══════════════════════════════════════
+       REVEAL
+    ═══════════════════════════════════════ */
+    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s, transform .7s; }
+    .reveal.vis { opacity:1; transform:translateY(0); }
+
+    /* ══════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════ */
+    @media(max-width:1024px){
+      nav { padding:1.2rem 1.8rem; }
+      .nav-links { display:none; }
+      section { padding:4rem 1.8rem; }
+      .hero { grid-template-columns:1fr; padding:7rem 1.8rem 4rem; gap:2rem; }
+      .hero-right { order:-1; }
+      .hero-sol svg { width:160px !important; height:160px !important; }
+      .wm-name { font-size:1.6rem; }
+      .wm-parent { font-size:.55rem; }
+      .wm-tag { font-size:.65rem; }
+      .hero-stats { gap:1.8rem; }
+      .stat-v { font-size:1.5rem; }
+      .prob-grid { grid-template-columns:1fr; gap:2rem; }
+      .feat-grid { grid-template-columns:1fr; }
+      .steps { grid-template-columns:1fr 1fr; }
+      .steps::before { display:none; }
+      .step { border-bottom:1px solid var(--border); padding:1.4rem 0; }
+      .casos-grid { grid-template-columns:1fr !important; }
+      .caso-feats { grid-template-columns:1fr !important; }
+      .eco-intro { grid-template-columns:1fr; }
+      footer { padding:2rem 1.8rem; flex-direction:column; gap:1rem; text-align:center; }
+    }
+    @media(max-width:600px){
+      .hero-title { font-size:clamp(2rem,9vw,3rem) !important; }
+      .hero-eyebrow { font-size:.58rem; }
+      .hero-sub { font-size:.9rem; }
+      .hero-stats { gap:1.4rem; }
+      .stat-v { font-size:1.3rem; }
+      .stat-k { font-size:.56rem; }
+      .sec-title { font-size:clamp(1.5rem,6vw,2.2rem); }
+    }
+  </style>
+</head>
+<body>
+
+<div id="cur"></div>
+<div id="ring"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <a class="nav-logo" href="#">
+    <span class="nav-pip"></span>
+    <span class="nav-parent">LUMEN /</span>&nbsp;NEXO
+  </a>
+  <ul class="nav-links">
+    <li><a href="#que-hace">Qué hacemos</a></li>
+    <li><a href="#casos">Casos de uso</a></li>
+    <li><a href="#ecosistema">Ecosistema</a></li>
+    <li><a href="#cta">Contacto</a></li>
+  </ul>
+  <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Empezar</button>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero" id="inicio">
+  <div class="hero-grid"></div>
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <div class="hero-left">
+    <div class="hero-eyebrow">
+      <span class="eyebrow-dash"></span>
+      Un producto de LUMEN · Automatización por demanda
+    </div>
+    <h1 class="hero-title">
+      Tus procesos<br>
+      <span class="ht-outline">funcionando</span><br>
+      <span class="ht-copper">solos.</span>
+    </h1>
+    <p class="hero-sub">
+      LUMEN NEXO convierte procesos manuales, repetitivos y desorganizados en <strong>flujos automáticos inteligentes</strong> para negocios, profesionales y emprendedores que quieren escalar sin depender de su tiempo.
+    </p>
+    <div class="hero-btns">
+      <a class="btn-fill" href="#cta">Quiero automatizar</a>
+      <button class="btn-ghost" onclick="document.getElementById('que-hace').scrollIntoView({behavior:'smooth'})">Ver cómo funciona →</button>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <!-- Sol Modular NEXO animado -->
+    <div class="hero-sol">
+      <svg width="220" height="220" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="96" stroke="rgba(200,120,74,.05)" stroke-width="1" stroke-dasharray="2 10" class="spin-cw"/>
+        <circle cx="100" cy="100" r="82" stroke="rgba(200,120,74,.08)" stroke-width="1" stroke-dasharray="3 9" class="spin-ccw"/>
+        <circle cx="100" cy="100" r="66" stroke="rgba(200,120,74,.14)" stroke-width="1"/>
+        <circle cx="100" cy="100" r="48" stroke="rgba(200,120,74,.1)" stroke-width="1" stroke-dasharray="5 4" class="spin-cw"/>
+        <!-- 5 rays — longer and more elegant -->
+        <rect x="97.5" y="4"  width="5" height="26" rx="2.5" fill="rgba(200,120,74,.85)" transform="rotate(0   100 100)"/>
+        <rect x="97.5" y="4"  width="5" height="26" rx="2.5" fill="rgba(200,120,74,.5)"  transform="rotate(72  100 100)"/>
+        <rect x="97.5" y="4"  width="5" height="26" rx="2.5" fill="rgba(200,120,74,.85)" transform="rotate(144 100 100)"/>
+        <rect x="97.5" y="4"  width="5" height="26" rx="2.5" fill="rgba(200,120,74,.5)"  transform="rotate(216 100 100)"/>
+        <rect x="97.5" y="4"  width="5" height="26" rx="2.5" fill="rgba(200,120,74,.85)" transform="rotate(288 100 100)"/>
+        <!-- Violet nodes -->
+        <circle cx="100" cy="8"  r="6" fill="rgba(124,92,191,.8)"  transform="rotate(0   100 100)"/>
+        <circle cx="100" cy="8"  r="6" fill="rgba(124,92,191,.5)"  transform="rotate(72  100 100)"/>
+        <circle cx="100" cy="8"  r="6" fill="rgba(124,92,191,.8)"  transform="rotate(144 100 100)"/>
+        <circle cx="100" cy="8"  r="6" fill="rgba(124,92,191,.5)"  transform="rotate(216 100 100)"/>
+        <circle cx="100" cy="8"  r="6" fill="rgba(124,92,191,.8)"  transform="rotate(288 100 100)"/>
+        <!-- Core glow layers -->
+        <circle cx="100" cy="100" r="32" fill="rgba(200,120,74,.1)" class="glow"/>
+        <circle cx="100" cy="100" r="22" fill="rgba(200,120,74,.18)" class="glow"/>
+        <circle cx="100" cy="100" r="14" fill="#c8784a"/>
+        <circle cx="100" cy="100" r="6"  fill="#f0b07a"/>
+      </svg>
+    </div>
+    <div class="hero-wordmark">
+      <div class="wm-parent">LUMEN /</div>
+      <div class="wm-name">NEX<span class="cu">O</span></div>
+      <div class="wm-tag">Automatización por demanda</div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-v">10x</div><div class="stat-k">Más rápido</div></div>
+      <div class="stat"><div class="stat-v">0</div><div class="stat-k">Tareas manuales</div></div>
+      <div class="stat"><div class="stat-v">100%</div><div class="stat-k">Automatizado</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="marquee-track">
+    <span class="mq-item">Flujos automáticos <span class="mq-dot">·</span></span>
+    <span class="mq-item">Documentos inteligentes <span class="mq-dot">·</span></span>
+    <span class="mq-item">Comunicación automatizada <span class="mq-dot">·</span></span>
+    <span class="mq-item">Control de procesos <span class="mq-dot">·</span></span>
+    <span class="mq-item">Integración de sistemas <span class="mq-dot">·</span></span>
+    <span class="mq-item">Sin código <span class="mq-dot">·</span></span>
+    <span class="mq-item">Escala sin límites <span class="mq-dot">·</span></span>
+    <span class="mq-item">Flujos automáticos <span class="mq-dot">·</span></span>
+    <span class="mq-item">Documentos inteligentes <span class="mq-dot">·</span></span>
+    <span class="mq-item">Comunicación automatizada <span class="mq-dot">·</span></span>
+    <span class="mq-item">Control de procesos <span class="mq-dot">·</span></span>
+    <span class="mq-item">Integración de sistemas <span class="mq-dot">·</span></span>
+    <span class="mq-item">Sin código <span class="mq-dot">·</span></span>
+    <span class="mq-item">Escala sin límites <span class="mq-dot">·</span></span>
+  </div>
+</div>
+
+<!-- ══ PROBLEMA ══ -->
+<section id="problema">
+  <div class="reveal">
+    <p class="sec-eyebrow">El problema real</p>
+    <h2 class="sec-title">Tu negocio crece.<br>Tus procesos <em>no.</em></h2>
+  </div>
+  <div class="prob-grid">
+    <div class="prob-list reveal" style="transition-delay:.1s">
+      <div class="prob-item"><span class="pi-icon">⏱</span><span class="pi-text">Horas perdidas en tareas repetitivas que podrían hacerse solas.</span></div>
+      <div class="prob-item"><span class="pi-icon">🗂</span><span class="pi-text">Información dispersa en hojas, correos y notas sin conexión.</span></div>
+      <div class="prob-item"><span class="pi-icon">❌</span><span class="pi-text">Errores humanos constantes por falta de sistemas claros.</span></div>
+      <div class="prob-item"><span class="pi-icon">📉</span><span class="pi-text">Escalar se vuelve imposible porque todo depende de ti.</span></div>
+      <div class="prob-item"><span class="pi-icon">💸</span><span class="pi-text">Clientes sin respuesta rápida, seguimientos olvidados, dinero perdido.</span></div>
+    </div>
+    <div class="sol-box reveal" style="transition-delay:.2s">
+      <div class="sol-title">LUMEN NEXO automatiza lo que te quita tiempo.</div>
+      <p class="sol-text">Diseñamos e implementamos flujos automáticos que conectan tus herramientas, procesan información y toman acciones sin que tú tengas que intervenir. El resultado: más tiempo, menos errores y un negocio que funciona incluso cuando no estás.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ QUÉ HACE ══ -->
+<section id="que-hace">
+  <div class="reveal">
+    <p class="sec-eyebrow">Qué hacemos</p>
+    <h2 class="sec-title">Automatización <em>real,</em><br>no promesas.</h2>
+  </div>
+  <div class="feat-grid">
+    <div class="feat-card">
+      <div class="fc-num">01</div>
+      <div class="fc-title">Flujos automáticos a medida</div>
+      <p class="fc-desc">Desde que un cliente llena un formulario hasta que recibe su propuesta, contrato o confirmación — sin que toques nada. Cada proceso se diseña específicamente para tu negocio.</p>
+    </div>
+    <div class="feat-card" style="transition-delay:.1s">
+      <div class="fc-num">02</div>
+      <div class="fc-title">Documentos y contratos automáticos</div>
+      <p class="fc-desc">Cotizaciones, propuestas, contratos y reportes generados desde plantillas con datos reales. Listos para enviarse en segundos, con formato profesional y consistente.</p>
+    </div>
+    <div class="feat-card" style="transition-delay:.15s">
+      <div class="fc-num">03</div>
+      <div class="fc-title">Comunicación en piloto automático</div>
+      <p class="fc-desc">Seguimientos, confirmaciones, recordatorios y notificaciones que salen solos en el momento correcto. Sin que tengas que recordarlo ni programarlo manualmente.</p>
+    </div>
+    <div class="feat-card" style="transition-delay:.2s">
+      <div class="fc-num">04</div>
+      <div class="fc-title">Sistemas conectados entre sí</div>
+      <p class="fc-desc">Tus herramientas de trabajo — formularios, hojas de cálculo, correo, WhatsApp, calendarios — trabajando juntas como un solo sistema coherente y sin fricciones.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESO ══ -->
+<section id="proceso">
+  <div class="reveal">
+    <p class="sec-eyebrow">Cómo trabajamos</p>
+    <h2 class="sec-title">De proceso <em>manual</em><br>a sistema <em>autónomo.</em></h2>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-dot"><span class="step-num">01</span></div>
+      <div class="step-title">Diagnóstico</div>
+      <p class="step-desc">Mapeamos tus procesos actuales, identificamos lo repetitivo y definimos qué automatizar primero para el mayor impacto.</p>
+    </div>
+    <div class="step" style="transition-delay:.1s">
+      <div class="step-dot"><span class="step-num">02</span></div>
+      <div class="step-title">Diseño del flujo</div>
+      <p class="step-desc">Construimos la arquitectura del sistema — qué herramientas, qué datos, qué lógica y qué resultado esperamos en cada etapa.</p>
+    </div>
+    <div class="step" style="transition-delay:.2s">
+      <div class="step-dot"><span class="step-num">03</span></div>
+      <div class="step-title">Implementación</div>
+      <p class="step-desc">Construimos e integramos todo el sistema. Tú no necesitas saber nada técnico — solo darnos acceso a las herramientas que ya usas.</p>
+    </div>
+    <div class="step" style="transition-delay:.3s">
+      <div class="step-dot"><span class="step-num">04</span></div>
+      <div class="step-title">Operación autónoma</div>
+      <p class="step-desc">El sistema corre solo. Tú recibes resultados, notificaciones y reportes sin intervenir en cada paso del proceso.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CASOS DE USO ══ -->
+<section id="casos">
+  <div class="reveal">
+    <p class="sec-eyebrow">Casos de uso</p>
+    <h2 class="sec-title">Lo que ya <em>funciona.</em></h2>
+  </div>
+  <div class="casos-grid" style="grid-template-columns:repeat(2,1fr); gap:1.5rem;">
+
+    <!-- Boda OS -->
+    <div class="caso-card">
+      <span class="caso-tag ct-copper">LUMEN NEXO · Bodas</span>
+      <div class="caso-name">Boda OS</div>
+      <div class="caso-sub">Sistema de gestión para wedding planners</div>
+      <p class="caso-desc">Sistema completo de seguimiento financiero y operativo para wedding planners. Automatiza cotizaciones, contratos, pagos y comunicación con clientes desde un solo panel.</p>
+      <div class="caso-feats">
+        <div class="cf-item"><span class="cf-dot" style="background:var(--copper)"></span>Seguimiento financiero por rubros automático</div>
+        <div class="cf-item"><span class="cf-dot" style="background:var(--copper)"></span>Documentos con membrete profesional</div>
+        <div class="cf-item"><span class="cf-dot" style="background:var(--copper)"></span>Cuenta regresiva y alertas automáticas</div>
+        <div class="cf-item"><span class="cf-dot" style="background:var(--copper)"></span>Versiones para WhatsApp y correo</div>
+      </div>
+    </div>
+
+    <!-- Dental OS -->
+    <div class="caso-card" style="transition-delay:.12s">
+      <span class="caso-tag" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.25);color:#2dd4bf;">LUMEN NEXO · Salud</span>
+      <div class="caso-name">Dental OS</div>
+      <div class="caso-sub">Sistema de gestión para clínicas dentales</div>
+      <p class="caso-desc">Sistema completo para clínicas dentales que automatiza el seguimiento de pacientes, historial clínico, recordatorios y campañas de retorno — todo con la imagen de la clínica.</p>
+      <div class="caso-feats">
+        <div class="cf-item"><span class="cf-dot" style="background:#2dd4bf"></span>Base de datos y historial clínico automático</div>
+        <div class="cf-item"><span class="cf-dot" style="background:#2dd4bf"></span>Confirmaciones, recordatorios y agenda del doctor</div>
+        <div class="cf-item"><span class="cf-dot" style="background:#2dd4bf"></span>Campañas segmentadas de retorno</div>
+        <div class="cf-item"><span class="cf-dot" style="background:#2dd4bf"></span>Portal privado con marca de la clínica</div>
+      </div>
+    </div>
+
+    <!-- Lumen Docs -->
+    <div class="caso-card" style="transition-delay:.18s">
+      <span class="caso-tag ct-teal">LUMEN NEXO · Educación</span>
+      <div class="caso-name">Lumen Docs</div>
+      <div class="caso-sub">Automatización documental para colegios</div>
+      <p class="caso-desc">Sistema que genera documentos oficiales — circulares, oficios, comunicados — de forma automática con membrete institucional, folio y distribución multicanal.</p>
+      <div class="caso-feats">
+        <div class="cf-item"><span class="cf-dot" style="background:var(--teal)"></span>Generación desde formulario en segundos</div>
+        <div class="cf-item"><span class="cf-dot" style="background:var(--teal)"></span>Folio consecutivo automático</div>
+        <div class="cf-item"><span class="cf-dot" style="background:var(--teal)"></span>PDF, WhatsApp y correo en un solo paso</div>
+        <div class="cf-item"><span class="cf-dot" style="background:var(--teal)"></span>Historial y control de documentos</div>
+      </div>
+    </div>
+
+    <!-- Tu negocio -->
+    <div class="caso-card" style="transition-delay:.24s">
+      <span class="caso-tag ct-violet">LUMEN NEXO · A medida</span>
+      <div class="caso-name">Tu negocio</div>
+      <div class="caso-sub">Sistema diseñado para tu proceso específico</div>
+      <p class="caso-desc">NEXO se adapta a cualquier industria. Si tienes un proceso que se repite, consume tiempo o depende de ti para funcionar — podemos automatizarlo.</p>
+      <div class="caso-feats">
+        <div class="cf-item"><span class="cf-dot" style="background:#a78bfa"></span>Diagnóstico gratuito de procesos</div>
+        <div class="cf-item"><span class="cf-dot" style="background:#a78bfa"></span>Diseño personalizado del flujo</div>
+        <div class="cf-item"><span class="cf-dot" style="background:#a78bfa"></span>Implementación sin que necesites código</div>
+        <div class="cf-item"><span class="cf-dot" style="background:#a78bfa"></span>Soporte continuo incluido</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ ECOSISTEMA ══ -->
+<section id="ecosistema">
+  <div class="reveal">
+    <p class="sec-eyebrow">El ecosistema LUMEN</p>
+    <h2 class="sec-title">NEXO es parte de<br>algo <em>más grande.</em></h2>
+  </div>
+  <div class="eco-intro">
+    <div class="eco-text reveal" style="transition-delay:.1s">
+      <p class="eco-desc">LUMEN es la plataforma madre de inteligencia y automatización. NEXO es su rama de negocios — aplica la misma lógica de sistemas al mundo empresarial, más allá del sector educativo.</p>
+      <p class="eco-desc" style="margin-top:1rem;">Cada producto del ecosistema comparte la misma filosofía: <strong style="color:var(--white); font-weight:500;">transformar procesos manuales en sistemas inteligentes que funcionan solos.</strong></p>
+    </div>
+    <div class="eco-products reveal" style="transition-delay:.2s">
+
+      <div class="eco-product">
+        <div class="ep-icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" fill="rgba(200,120,74,.1)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(0   24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(200,120,74,.5)" transform="rotate(72  24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(144 24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(200,120,74,.5)" transform="rotate(216 24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(288 24 24)"/>
+            <circle cx="24" cy="24" r="7" fill="#c8784a"/><circle cx="24" cy="24" r="3" fill="#e09a6a"/>
+          </svg>
+        </div>
+        <div class="ep-info">
+          <div class="ep-name">LUMEN NEXO</div>
+          <div class="ep-line">Automatización para negocios y emprendedores</div>
+        </div>
+        <span class="ep-badge badge-nexo">Aquí estás</span>
+      </div>
+
+      <div class="eco-product">
+        <div class="ep-icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" fill="rgba(22,160,144,.09)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.75)" transform="rotate(0   24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.45)" transform="rotate(60  24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.75)" transform="rotate(120 24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.45)" transform="rotate(180 24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.75)" transform="rotate(240 24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.45)" transform="rotate(300 24 24)"/>
+            <circle cx="24" cy="24" r="7" fill="#16a090"/><circle cx="24" cy="24" r="3" fill="#7addd6"/>
+          </svg>
+        </div>
+        <div class="ep-info">
+          <div class="ep-name">MENTEA</div>
+          <div class="ep-line">Evaluación psicopedagógica para escuelas</div>
+        </div>
+        <span class="ep-badge badge-edu">Educativo</span>
+      </div>
+
+      <div class="eco-product">
+        <div class="ep-icon">
+          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
+            <circle cx="24" cy="24" r="22" fill="rgba(79,70,229,.09)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(79,70,229,.8)" transform="rotate(0   24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(79,70,229,.8)" transform="rotate(90  24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(79,70,229,.8)" transform="rotate(180 24 24)"/>
+            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(79,70,229,.8)" transform="rotate(270 24 24)"/>
+            <circle cx="24" cy="24" r="7" fill="#4f46e5"/><circle cx="24" cy="24" r="3" fill="#a5b4fc"/>
+          </svg>
+        </div>
+        <div class="ep-info">
+          <div class="ep-name">LUMEN DOCS</div>
+          <div class="ep-line">Automatización documental para colegios</div>
+        </div>
+        <span class="ep-badge badge-indigo">Educativo</span>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section id="cta">
+  <div class="cta-bg-word">NEXO</div>
+  <p class="sec-eyebrow" style="justify-content:center;">Da el primer paso</p>
+  <h2 class="cta-title reveal">
+    ¿Listo para que tus<br>
+    procesos corran <em>solos?</em>
+  </h2>
+  <p class="cta-sub reveal" style="transition-delay:.15s;">
+    Agenda una llamada de diagnóstico gratuita. En 30 minutos identificamos qué automatizar primero y cómo hacerlo.
+  </p>
+  <div class="cta-form reveal" style="transition-delay:.3s;">
+    <input type="email" placeholder="tucorreo@negocio.com" id="ctaEmail"/>
+    <button onclick="handleCTA()">Agendar llamada</button>
+  </div>
+  <p style="font-family:'Lora',serif; font-size:.75rem; font-style:italic; color:var(--fog); margin-top:1rem; position:relative; z-index:1;" class="reveal" style="transition-delay:.45s;">Sin costo · Sin compromiso · Respuesta en menos de 24h</p>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-left">
+    <svg width="22" height="22" viewBox="0 0 48 48" fill="none">
+      <circle cx="24" cy="24" r="22" fill="rgba(200,120,74,.1)"/>
+      <rect x="22.5" y="2" width="3" height="6" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(0   24 24)"/>
+      <rect x="22.5" y="2" width="3" height="6" rx="1.5" fill="rgba(200,120,74,.5)" transform="rotate(72  24 24)"/>
+      <rect x="22.5" y="2" width="3" height="6" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(144 24 24)"/>
+      <rect x="22.5" y="2" width="3" height="6" rx="1.5" fill="rgba(200,120,74,.5)" transform="rotate(216 24 24)"/>
+      <rect x="22.5" y="2" width="3" height="6" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(288 24 24)"/>
+      <circle cx="24" cy="24" r="7" fill="#c8784a"/><circle cx="24" cy="24" r="3" fill="#e09a6a"/>
+    </svg>
+    <span class="foot-name">LUMEN <span>NEXO</span></span>
+    <span class="foot-sep">·</span>
+    <span class="foot-tag">Automatización por demanda</span>
+  </div>
+  <div class="foot-copy">© 2025 LUMEN · lumennexo.com</div>
+</footer>
+
+<script>
+// Cursor
+var cur=document.getElementById('cur'),ring=document.getElementById('ring');
+var mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',function(e){
+  mx=e.clientX; my=e.clientY;
+  cur.style.transform='translate('+(mx-5)+'px,'+(my-5)+'px)';
+});
+(function loop(){
+  rx+=(mx-rx-18)*.12; ry+=(my-ry-18)*.12;
+  ring.style.transform='translate('+rx+'px,'+ry+'px)';
+  requestAnimationFrame(loop);
+})();
+
+// Nav
+var nav=document.getElementById('nav');
+window.addEventListener('scroll',function(){ nav.classList.toggle('stuck',scrollY>60); });
+
+// Reveal
+var io=new IntersectionObserver(function(entries){
+  entries.forEach(function(e){
+    if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); }
+  });
+},{threshold:.1});
+document.querySelectorAll('.reveal,.feat-card,.step,.caso-card').forEach(function(el){ io.observe(el); });
+
+// CTA
+function handleCTA(){
+  var inp=document.getElementById('ctaEmail');
+  if(inp.value.indexOf('@')!==-1){
+    inp.value=''; inp.placeholder='Recibido. Te contactamos pronto.';
+    inp.style.color='#c8784a';
+  }
+}
+</script>
+</body>
+</html>
