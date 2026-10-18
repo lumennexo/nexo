@@ -1,978 +1,166 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="LUMEN NEXO — Automatización por demanda para negocios, profesionales y emprendedores. Un producto de LUMEN."/>
-  <title>LUMEN NEXO — Automatización por demanda</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=Lora:ital,wght@0,400;0,500;1,400;1,500&display=swap" rel="stylesheet"/>
-  <style>
-    /* ══════════════════════════════════════
-       TOKENS
-    ═══════════════════════════════════════ */
-    :root {
-      --bg:       #0c0b14;
-      --surface:  #121120;
-      --card:     #17162a;
-      --border:   rgba(255,255,255,.07);
-      --white:    #f2f0f8;
-      --fog:      #6e6c84;
-      --mist:     #9e9cb8;
-      --copper:   #c8784a;
-      --copper2:  #e09a6a;
-      --copper3:  rgba(200,120,74,.12);
-      --violet:   #7c5cbf;
-      --violet2:  rgba(124,92,191,.15);
-      --indigo:   #4f46e5;
-      --teal:     #16a090;
-      --amber:    #d4924a;
-    }
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#091923">
+<meta name="description" content="LUMEN diseña tecnología para simplificar lo que haces todos los días.">
+<title>LUMEN — Tu tiempo merece algo mejor</title>
+<style>
+:root{--navy:#091923;--navy2:#102a35;--ink:#eff4ef;--muted:#a9bcc0;--teal:#8bd6c8;--gold:#d1b68e;--line:rgba(201,226,223,.18);--ease:cubic-bezier(.76,0,.24,1)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--navy);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;overflow-x:hidden}a{color:inherit;text-decoration:none}button{font:inherit}button:focus-visible,a:focus-visible{outline:2px solid var(--teal);outline-offset:5px}::selection{background:var(--teal);color:var(--navy)}
+#ambient{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;opacity:.9}body:before{content:"";position:fixed;inset:0;z-index:1;pointer-events:none;background:linear-gradient(90deg,rgba(7,20,29,.55),transparent 75%),linear-gradient(0deg,rgba(7,20,29,.38),transparent 55%)}.grain{position:fixed;inset:0;z-index:2;pointer-events:none;opacity:.12;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.88' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E")}.site{position:relative;z-index:3}.shell{width:min(1320px,calc(100% - 8vw));margin:auto}.topbar{height:90px;display:flex;align-items:center;justify-content:space-between;position:relative;z-index:10}.brand{display:flex;align-items:center;gap:12px;letter-spacing:.23em;font-weight:750;font-size:19px}.brand-mark{width:27px;height:27px;display:block;filter:drop-shadow(0 0 11px rgba(139,214,200,.28))}.brand-mark path{stroke:var(--teal);stroke-width:1.7;fill:none;stroke-linecap:round}.brand small{font-size:9px;letter-spacing:.18em;color:var(--gold);font-weight:500;display:block;margin-top:4px}.brand-copy{display:flex;flex-direction:column}.top-actions{display:flex;align-items:center;gap:30px}.top-link{font-size:12px;color:#c7d8d8;letter-spacing:.12em;text-transform:uppercase}.menu-toggle{display:flex;align-items:center;gap:16px;background:transparent;color:var(--ink);border:0;cursor:pointer;padding:12px 0 12px 12px;text-transform:uppercase;font-size:11px;letter-spacing:.16em}.menu-toggle .glyph{width:42px;height:42px;border:1px solid var(--line);border-radius:50%;display:grid;place-items:center;font-size:22px;font-weight:200;transition:transform .55s,background .35s}.menu-toggle:hover .glyph{transform:rotate(90deg);background:rgba(139,214,200,.1)}
+.hero{min-height:min(830px,calc(100svh - 90px));display:flex;flex-direction:column;justify-content:center;padding:75px 0 90px;position:relative}.eyebrow{display:flex;align-items:center;gap:14px;color:var(--gold);font-size:11px;letter-spacing:.26em;text-transform:uppercase;font-weight:600}.eyebrow:before{content:"";width:35px;height:1px;background:var(--gold)}.hero h1{font-size:clamp(58px,8.2vw,132px);line-height:.98;letter-spacing:-.077em;max-width:1050px;font-weight:520;margin:34px 0 32px}.hero h1 span{display:block}.hero h1 em{font-style:normal;color:var(--teal);text-shadow:0 0 50px rgba(139,214,200,.16)}.hero-sub{font-size:clamp(17px,1.8vw,23px);font-weight:320;line-height:1.55;color:#c5d6d7;max-width:550px}.hero-bottom{display:flex;align-items:center;justify-content:space-between;gap:30px;margin-top:65px}.primary-cta{display:inline-flex;align-items:center;gap:25px;border:1px solid rgba(139,214,200,.45);background:rgba(16,52,59,.47);border-radius:100px;padding:18px 19px 18px 27px;color:#f5fbf8;letter-spacing:.025em;backdrop-filter:blur(12px);transition:background .3s,transform .3s}.primary-cta:hover{background:rgba(30,84,85,.66);transform:translateY(-3px)}.cta-arrow{width:33px;height:33px;border-radius:50%;background:var(--teal);color:var(--navy);display:grid;place-items:center;font-size:20px}.scroll-note{display:flex;align-items:center;gap:15px;color:#9ab4b9;font-size:10px;letter-spacing:.2em;text-transform:uppercase}.scroll-line{width:42px;height:1px;background:#9ab4b9}.section{padding:125px 0;border-top:1px solid var(--line)}.section-heading{display:flex;justify-content:space-between;align-items:end;gap:40px;margin-bottom:65px}.section-heading h2{font-size:clamp(42px,5.3vw,82px);letter-spacing:-.065em;line-height:1.04;font-weight:520;margin:23px 0 0;max-width:780px}.section-heading p{color:var(--muted);max-width:340px;line-height:1.65;font-size:15px}.service-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.service{min-height:360px;padding:34px;display:flex;flex-direction:column;justify-content:space-between;background:linear-gradient(155deg,rgba(34,74,79,.52),rgba(9,28,39,.77));border:1px solid var(--line);border-radius:5px;position:relative;overflow:hidden;transition:transform .4s,border-color .4s,background .4s}.service:hover{transform:translateY(-9px);border-color:rgba(139,214,200,.5);background:linear-gradient(155deg,rgba(42,93,91,.66),rgba(9,28,39,.8))}.service:after{content:"";width:220px;height:220px;position:absolute;right:-120px;top:-130px;background:radial-gradient(circle,rgba(139,214,200,.2),transparent 70%);transition:transform .6s}.service:hover:after{transform:translate(-60px,50px)}.service-number{font-size:11px;color:var(--gold);letter-spacing:.22em}.service-symbol{font-size:39px;font-weight:200;color:var(--teal)}.service h3{font-size:29px;letter-spacing:-.045em;font-weight:520;margin:0 0 14px}.service p{color:#b6c8ca;font-size:14px;line-height:1.7;margin:0}.service-bottom{display:flex;justify-content:space-between;align-items:end;gap:12px}.service-arrow{font-size:25px;color:var(--teal)}.process{display:grid;grid-template-columns:repeat(3,1fr);gap:35px;margin-top:55px}.step{padding:28px 0;border-top:1px solid rgba(139,214,200,.48)}.step .num{font-size:12px;color:var(--gold)}.step h3{font-size:clamp(27px,3vw,42px);font-weight:440;letter-spacing:-.045em;margin:35px 0 14px}.step p{color:var(--muted);line-height:1.65;font-size:14px;max-width:280px}.manifesto{padding:140px 0;text-align:center}.manifesto h2{font-size:clamp(42px,6vw,94px);font-weight:450;letter-spacing:-.07em;line-height:1.08;max-width:980px;margin:20px auto 30px}.manifesto h2 em{color:var(--teal);font-style:normal}.manifesto p{color:var(--muted);line-height:1.65;font-size:17px;max-width:580px;margin:0 auto 35px}.footer{border-top:1px solid var(--line);padding:40px 0 55px;display:flex;align-items:center;justify-content:space-between;gap:20px;color:#9db5b8;font-size:12px}.footer strong{letter-spacing:.22em;color:var(--ink)}
+/* Cinematic opening */.intro{position:fixed;inset:0;z-index:80;background:#081720;display:grid;place-items:center;overflow:hidden;transition:opacity 1.3s ease,visibility 1.3s}.intro.done{opacity:0;visibility:hidden;pointer-events:none}.intro-orb{position:absolute;width:min(75vw,660px);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 38% 40%,rgba(191,240,214,.35),rgba(64,177,164,.18) 20%,rgba(24,94,108,.19) 41%,transparent 69%);filter:blur(14px);animation:introPulse 4s ease-in-out infinite}.intro-ring{position:absolute;width:min(58vw,480px);aspect-ratio:1;border-radius:50%;border:1px solid rgba(139,214,200,.17);box-shadow:0 0 100px rgba(139,214,200,.1),inset 0 0 90px rgba(139,214,200,.04);animation:spin 18s linear infinite}.intro-ring:after{content:"";position:absolute;top:11%;left:12%;width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 30px var(--gold)}.intro-content{position:relative;text-align:center;padding:24px;animation:rise 1.9s .35s both}.intro-kicker{font-size:11px;letter-spacing:.34em;color:var(--gold);margin-bottom:28px}.intro-content h2{font-size:clamp(42px,7vw,100px);letter-spacing:-.07em;line-height:1.02;font-weight:450;margin:0}.intro-content h2 span{color:var(--teal)}.intro-progress{width:170px;height:1px;background:rgba(255,255,255,.18);margin:40px auto 0;overflow:hidden}.intro-progress:after{content:"";display:block;width:100%;height:100%;background:var(--teal);transform-origin:left;animation:progress 7.4s cubic-bezier(.3,0,.7,1) forwards}.skip{position:absolute;bottom:35px;right:5vw;border:0;background:transparent;color:#b9ccce;letter-spacing:.14em;text-transform:uppercase;font-size:11px;cursor:pointer;padding:12px}
+/* Osmo-inspired wipe navigation, independently implemented */.menu-overlay{position:fixed;inset:0;z-index:50;visibility:hidden;pointer-events:none}.menu-overlay.open{visibility:visible;pointer-events:auto}.wipe{position:absolute;inset:0;background:#1a454c;transform:translateY(-105%);transition:transform .85s var(--ease)}.wipe.second{background:#0c2632;transition-delay:.09s}.wipe.third{background:#102c37;transition-delay:.17s}.menu-overlay.open .wipe{transform:translateY(0)}.menu-overlay.closing .wipe{transform:translateY(105%)}.menu-overlay.closing .wipe.third{transition-delay:0s}.menu-overlay.closing .wipe.second{transition-delay:.08s}.menu-overlay.closing .wipe:first-child{transition-delay:.16s}.menu-inner{position:relative;z-index:2;height:100%;width:min(1320px,calc(100% - 8vw));margin:auto;display:flex;flex-direction:column;padding:36px 0 50px;opacity:0;transform:translateY(35px);transition:opacity .45s,transform .65s}.menu-overlay.open .menu-inner{opacity:1;transform:translateY(0);transition-delay:.52s}.menu-overlay.closing .menu-inner{opacity:0;transition-delay:0s}.menu-top{display:flex;align-items:center;justify-content:space-between}.menu-top .brand{font-size:18px}.close-menu{border:1px solid rgba(255,255,255,.28);border-radius:50%;width:47px;height:47px;background:transparent;color:white;cursor:pointer;font-size:24px}.menu-list{list-style:none;margin:auto 0;padding:30px 0;width:100%}.menu-list li{border-bottom:1px solid rgba(255,255,255,.18)}.menu-list a{display:flex;align-items:center;justify-content:space-between;padding:13px 8px;transition:color .25s,padding .35s}.menu-list a:hover{color:var(--teal);padding-left:23px}.menu-list strong{font-size:clamp(37px,6vw,83px);font-weight:450;letter-spacing:-.06em}.menu-list small{color:var(--gold);font-size:13px}.menu-foot{display:flex;justify-content:space-between;color:var(--muted);font-size:12px;gap:15px}.reveal{opacity:0;transform:translateY(28px);transition:opacity .85s ease,transform .85s ease}.reveal.visible{opacity:1;transform:translateY(0)}
+@keyframes rise{from{opacity:0;transform:translateY(25px)}to{opacity:1;transform:translateY(0)}}@keyframes introPulse{50%{transform:scale(1.13);opacity:.7}}@keyframes spin{to{transform:rotate(360deg)}}@keyframes progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(max-width:800px){.shell{width:calc(100% - 44px)}.topbar{height:78px}.top-link{display:none}.hero{min-height:calc(100svh - 78px);padding:75px 0}.hero h1{font-size:clamp(54px,11vw,90px)}.hero-bottom{align-items:flex-start;flex-direction:column;gap:40px}.section{padding:85px 0}.section-heading{display:block}.section-heading p{margin-top:25px}.service-grid{grid-template-columns:1fr}.service{min-height:300px}.process{grid-template-columns:1fr;gap:0}.manifesto{padding:90px 0}.menu-inner{width:calc(100% - 44px)}.menu-list strong{font-size:clamp(38px,9vw,68px)}.footer{flex-wrap:wrap}}@media(max-width:440px){.hero h1{font-size:clamp(47px,12vw,66px)}.hero-sub{font-size:17px}.brand{font-size:17px}.menu-toggle{gap:8px}.menu-toggle .glyph{width:38px;height:38px}.menu-list strong{font-size:36px}.menu-list a{padding:16px 0}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}.reveal{opacity:1;transform:none}.intro{display:none}}
+</style>
+<style>
+.discovery-card{max-width:900px;margin:auto;background:linear-gradient(145deg,rgba(21,57,68,.94),rgba(8,28,40,.97));border:1px solid rgba(139,214,200,.3);padding:clamp(24px,5vw,58px);border-radius:10px;box-shadow:0 30px 90px rgba(0,0,0,.16)}.discovery-top{display:flex;justify-content:space-between;gap:12px;color:var(--gold);font-size:11px;letter-spacing:.17em}.discovery-progress{height:3px;background:rgba(255,255,255,.12);margin:24px 0 36px;overflow:hidden}.discovery-progress span{display:block;width:20%;height:100%;background:var(--teal);transition:width .4s}.discovery-card h3{font-size:clamp(30px,4vw,54px);font-weight:480;line-height:1.15;letter-spacing:-.045em;margin:0 0 30px}.discovery-card p{color:#b8cbd0;line-height:1.65}.discovery-options{display:grid;gap:12px}.discovery-option{display:block;cursor:pointer}.discovery-option input{position:absolute;opacity:0}.discovery-option span{display:block;padding:19px 22px;border:1px solid #47606a;background:#183643;border-radius:5px;transition:background .2s,border-color .2s}.discovery-option input:checked+span,.discovery-option input:focus-visible+span{background:#27525a;border-color:var(--teal);outline-offset:3px}.discovery-option:hover span{border-color:var(--teal)}.discovery-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:30px}.secondary-btn{border:0;background:none;color:#c4d7d8;cursor:pointer;padding:16px 8px}.discovery-input,.discovery-textarea{width:100%;padding:16px 18px;margin:7px 0 17px;background:#102a37;color:white;border:1px solid #4b6771;border-radius:5px;font:inherit}.discovery-textarea{min-height:100px;resize:vertical}.discovery-field{display:block;color:#d7e5e6;font-size:14px}.discovery-note{font-size:12px;color:#a6bdc1!important}.discovery-error{color:#ffd0ba!important;font-size:13px;margin:15px 0 0}.discovery-consent{display:flex;gap:12px;align-items:flex-start;line-height:1.5;font-size:13px;color:#c6d6d8}.discovery-consent input{margin-top:3px;accent-color:#8bd6c8}.discovery-card [hidden]{display:none!important}@media(max-width:600px){.discovery-actions{align-items:stretch}.discovery-actions .primary-cta{padding:13px 12px;gap:10px}.discovery-top{font-size:9px}}
 
-    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
-    html { scroll-behavior:smooth; }
+/* LUMEN Fluid v4 — animated identity, native SVG and CSS */
+.lumen-mark{width:100%;height:100%;display:block;overflow:visible}
+.brand .lumen-mark{width:34px;height:34px;flex:none}
+.brand-mark{display:none}
+.footer-brand{display:inline-flex;align-items:center;gap:9px}.footer-brand .lumen-mark{width:29px;height:29px}
+.intro-v4{width:min(92vw,720px);animation:none;display:flex;align-items:center;flex-direction:column;gap:0}
+.intro-symbol{width:clamp(145px,24vw,260px);height:clamp(145px,24vw,260px);filter:drop-shadow(0 0 30px rgba(92,209,196,.24));animation:markFloat 4s ease-in-out 3.3s infinite}
+.intro-symbol .lm-wing-a{transform-origin:57px 137px;animation:wingA 8s cubic-bezier(.2,.75,.25,1) both}
+.intro-symbol .lm-wing-b{transform-origin:57px 137px;animation:wingB 8s cubic-bezier(.2,.75,.25,1) both}
+.intro-symbol .lm-fold{animation:foldReveal 8s ease both}
+.intro-symbol .lm-spark{animation:sparkArrive 8s ease both;transform-origin:133px 50px}
+.intro-wordmark{font-size:clamp(40px,8vw,86px);font-weight:350;letter-spacing:.27em;padding-left:.27em;color:#f0e8d8;line-height:1.18;animation:identityReveal 8s ease both}
+.intro-descriptor{font-size:clamp(9px,1.3vw,13px);letter-spacing:.38em;padding-left:.38em;color:#c2d7d6;margin-top:13px;animation:identityReveal 8s ease both}
+.intro-tagline{font-size:clamp(16px,2.5vw,25px);color:#e5eee9;letter-spacing:-.025em;margin-top:35px;animation:taglineReveal 8s ease both}
+.intro-v4 .intro-progress{margin:27px auto 0;animation:identityReveal 8s ease both}
+@keyframes wingA{0%,8%{opacity:0;transform:translate(-85px,-30px) rotate(-48deg) scale(.72)}30%{opacity:1}48%,100%{opacity:1;transform:none}}
+@keyframes wingB{0%,8%{opacity:0;transform:translate(110px,60px) rotate(60deg) scale(.66)}30%{opacity:1}48%,100%{opacity:1;transform:none}}
+@keyframes foldReveal{0%,33%{opacity:0}51%,100%{opacity:1}}
+@keyframes sparkArrive{0%,25%{opacity:0;transform:translate(35px,-45px) scale(.2)}47%{opacity:1;transform:scale(1.5)}55%,100%{opacity:1;transform:scale(1)}}
+@keyframes identityReveal{0%,44%{opacity:0;transform:translateY(15px);filter:blur(7px)}62%,100%{opacity:1;transform:none;filter:blur(0)}}
+@keyframes taglineReveal{0%,66%{opacity:0;transform:translateY(12px)}81%,100%{opacity:1;transform:none}}
+@keyframes markFloat{50%{transform:translateY(-7px)}}
+@media(max-width:520px){.intro-descriptor{letter-spacing:.2em;padding-left:.2em}.intro-tagline{margin-top:26px}.intro-symbol{width:180px;height:180px}.intro-wordmark{font-size:48px}}
+@media(prefers-reduced-motion:reduce){.intro-symbol,.intro-symbol *, .intro-wordmark,.intro-descriptor,.intro-tagline{animation:none!important}}
 
-    body {
-      background: var(--bg);
-      color: var(--white);
-      font-family: 'Lora', serif;
-      font-weight: 400;
-      overflow-x: hidden;
-      cursor: none;
-    }
+/* V7: liquid morph — no dotted trajectories, no rigid sliding */
+.intro-symbol .lm-wing-a,.intro-symbol .lm-wing-b{animation:none!important;transform:none!important;opacity:1!important}
+.intro-symbol .lm-fold{animation:liquidFold 8s ease both!important}
+.intro-symbol .lm-spark{animation:liquidSpark 8s ease both!important}
+.intro-ring{opacity:.16;animation:none}
+@keyframes liquidFold{0%,43%{opacity:0}58%,100%{opacity:1}}
+@keyframes liquidSpark{0%,36%{opacity:0;transform:scale(.25)}57%,100%{opacity:1;transform:scale(1)}}
 
-    /* ── CURSOR ── */
-    #cur {
-      position:fixed; z-index:9999; pointer-events:none;
-      width:10px; height:10px; border-radius:50%;
-      background:var(--copper); mix-blend-mode:screen;
-      will-change:transform; transition:width .2s, height .2s;
-    }
-    #ring {
-      position:fixed; z-index:9998; pointer-events:none;
-      width:36px; height:36px; border-radius:50%;
-      border:1px solid rgba(200,120,74,.35);
-      will-change:transform;
-    }
-
-    /* ── NOISE OVERLAY ── */
-    body::after {
-      content:''; position:fixed; inset:0; pointer-events:none; z-index:900;
-      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
-      opacity:.028;
-    }
-
-    /* ══════════════════════════════════════
-       NAV
-    ═══════════════════════════════════════ */
-    nav {
-      position:fixed; top:0; width:100%; z-index:500;
-      display:flex; justify-content:space-between; align-items:center;
-      padding:1.4rem 5rem;
-      transition:background .5s, border-color .5s;
-    }
-    nav.stuck {
-      background:rgba(12,11,20,.92);
-      backdrop-filter:blur(20px);
-      border-bottom:1px solid var(--border);
-    }
-    .nav-logo {
-      display:flex; align-items:center; gap:.6rem;
-      font-family:'Syne',sans-serif; font-size:1rem; font-weight:700;
-      letter-spacing:.1em; text-transform:uppercase;
-      color:var(--white); text-decoration:none;
-    }
-    .nav-pip {
-      width:6px; height:6px; border-radius:50%;
-      background:var(--copper); box-shadow:0 0 10px var(--copper);
-      animation:pipAnim 2.8s ease-in-out infinite;
-    }
-    @keyframes pipAnim { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(1.6)} }
-    .nav-parent { color:var(--fog); font-weight:400; }
-
-    .nav-links { display:flex; gap:2.2rem; list-style:none; }
-    .nav-links a {
-      font-family:'Syne',sans-serif; font-size:.72rem;
-      letter-spacing:.12em; text-transform:uppercase;
-      color:var(--fog); text-decoration:none; transition:color .2s;
-    }
-    .nav-links a:hover { color:var(--white); }
-
-    .nav-cta {
-      font-family:'Syne',sans-serif; font-size:.72rem;
-      letter-spacing:.12em; text-transform:uppercase;
-      padding:.55rem 1.4rem; border:1px solid rgba(200,120,74,.4);
-      background:none; color:var(--copper); cursor:pointer;
-      transition:background .2s, color .2s;
-    }
-    .nav-cta:hover { background:var(--copper); color:var(--bg); }
-
-    /* ══════════════════════════════════════
-       HERO
-    ═══════════════════════════════════════ */
-    .hero {
-      min-height:100vh;
-      display:grid; grid-template-columns:55% 45%;
-      align-items:center;
-      padding:9rem 5rem 5rem;
-      position:relative; overflow:hidden;
-    }
-
-    /* Grid lines */
-    .hero-grid {
-      position:absolute; inset:0; pointer-events:none;
-      background-image:
-        linear-gradient(rgba(200,120,74,.04) 1px,transparent 1px),
-        linear-gradient(90deg,rgba(200,120,74,.04) 1px,transparent 1px);
-      background-size:72px 72px;
-      mask-image:radial-gradient(ellipse 75% 80% at 65% 50%,#000 15%,transparent 80%);
-    }
-
-    /* Orbs */
-    .orb {
-      position:absolute; border-radius:50%; pointer-events:none;
-      filter:blur(100px); animation:orbFloat ease-in-out infinite alternate;
-    }
-    .orb1 { width:600px;height:600px; top:-150px;right:-100px; background:rgba(200,120,74,.1); animation-duration:16s; }
-    .orb2 { width:400px;height:400px; bottom:-100px;left:-80px; background:rgba(124,92,191,.08); animation-duration:12s;animation-delay:-6s; }
-    .orb3 { width:300px;height:300px; top:40%;right:25%; background:rgba(79,70,229,.06); animation-duration:19s;animation-delay:-3s; }
-    @keyframes orbFloat { from{transform:translate(0,0)scale(1)} to{transform:translate(24px,16px)scale(1.08)} }
-
-    .hero-left { position:relative; z-index:2; }
-
-    .hero-eyebrow {
-      display:inline-flex; align-items:center; gap:.55rem;
-      font-family:'Syne',sans-serif; font-size:.65rem;
-      letter-spacing:.22em; text-transform:uppercase;
-      color:var(--copper); border:1px solid rgba(200,120,74,.25);
-      padding:.36rem .9rem; margin-bottom:2.4rem; width:fit-content;
-      opacity:0; animation:heroUp .8s .1s forwards;
-    }
-    .eyebrow-dash { width:22px; height:1px; background:var(--copper); }
-
-    .hero-title {
-      font-family:'Syne',sans-serif;
-      font-size:clamp(2.2rem,5.5vw,5.5rem);
-      font-weight:800; line-height:.96;
-      letter-spacing:-.025em; margin-bottom:2rem;
-      opacity:0; animation:heroUp .9s .25s forwards;
-    }
-    .ht-outline {
-      display:block;
-      -webkit-text-stroke:1.5px rgba(200,120,74,.5);
-      color:transparent;
-    }
-    .ht-copper { display:block; color:var(--copper); }
-
-    .hero-sub {
-      font-family:'Lora',serif; font-size:1.05rem;
-      line-height:1.82; color:var(--mist);
-      max-width:50ch; margin-bottom:3rem;
-      opacity:0; animation:heroUp .9s .4s forwards;
-    }
-    .hero-sub strong { color:var(--white); font-weight:500; }
-
-    .hero-btns {
-      display:flex; gap:1rem; flex-wrap:wrap;
-      opacity:0; animation:heroUp .9s .55s forwards;
-    }
-    .btn-fill {
-      background:var(--copper); color:var(--bg); border:none;
-      padding:.95rem 2.4rem;
-      font-family:'Syne',sans-serif; font-size:.76rem;
-      font-weight:600; letter-spacing:.1em; text-transform:uppercase;
-      cursor:pointer; transition:opacity .2s, transform .2s;
-      text-decoration:none; display:inline-block;
-    }
-    .btn-fill:hover { opacity:.82; transform:translateY(-2px); }
-    .btn-ghost {
-      background:none; border:1px solid var(--border);
-      color:var(--mist); padding:.95rem 2rem;
-      font-family:'Syne',sans-serif; font-size:.76rem;
-      letter-spacing:.1em; text-transform:uppercase;
-      cursor:pointer; transition:border-color .2s, color .2s;
-    }
-    .btn-ghost:hover { border-color:var(--white); color:var(--white); }
-
-    /* Hero right — animated logo */
-    .hero-right {
-      position:relative; z-index:2;
-      display:flex; flex-direction:column; align-items:center; gap:2.4rem;
-      opacity:0; animation:heroUp .9s .3s forwards;
-    }
-
-    .hero-sol { position:relative; }
-    @keyframes spinCW  { from{transform:rotate(0)} to{transform:rotate(360deg)} }
-    @keyframes spinCCW { from{transform:rotate(0)} to{transform:rotate(-360deg)} }
-    @keyframes glowPulse { 0%,100%{opacity:.7;transform:scale(1)} 50%{opacity:1;transform:scale(1.1)} }
-    .spin-cw  { transform-box:fill-box; transform-origin:center; animation:spinCW  30s linear infinite; }
-    .spin-ccw { transform-box:fill-box; transform-origin:center; animation:spinCCW 22s linear infinite; }
-    .glow     { transform-box:fill-box; transform-origin:center; animation:glowPulse 3s ease-in-out infinite; }
-
-    .hero-wordmark { text-align:center; }
-    .wm-parent {
-      font-family:'Syne',sans-serif; font-size:.65rem;
-      font-weight:600; letter-spacing:.3em; text-transform:uppercase;
-      color:var(--fog); margin-bottom:.3rem;
-    }
-    .wm-name {
-      font-family:'Syne',sans-serif; font-size:2.4rem;
-      font-weight:800; letter-spacing:.1em; text-transform:uppercase;
-      color:var(--white); line-height:1;
-    }
-    .wm-name .cu { color:var(--copper); }
-    .wm-tag {
-      font-family:'Lora',serif; font-size:.75rem;
-      font-style:italic; color:var(--fog); margin-top:.4rem;
-    }
-
-    /* Float stats */
-    .hero-stats {
-      display:flex; gap:3rem;
-      opacity:0; animation:heroUp .9s 1s forwards;
-    }
-    .stat { text-align:center; }
-    .stat-v {
-      font-family:'Syne',sans-serif; font-size:2rem;
-      font-weight:800; color:var(--copper); line-height:1;
-    }
-    .stat-k {
-      font-family:'Syne',sans-serif; font-size:.6rem;
-      letter-spacing:.14em; text-transform:uppercase;
-      color:var(--fog); margin-top:.3rem;
-    }
-
-    @keyframes heroUp { from{opacity:0;transform:translateY(22px)} to{opacity:1;transform:translateY(0)} }
-
-    /* ══════════════════════════════════════
-       MARQUEE
-    ═══════════════════════════════════════ */
-    .marquee {
-      overflow:hidden; border-top:1px solid var(--border);
-      border-bottom:1px solid var(--border); padding:.9rem 0;
-      background:rgba(255,255,255,.02);
-    }
-    .marquee-track { display:flex; width:max-content; animation:mq 26s linear infinite; }
-    .mq-item {
-      font-family:'Syne',sans-serif; font-size:.65rem;
-      letter-spacing:.2em; text-transform:uppercase;
-      color:var(--fog); padding:0 2.4rem; white-space:nowrap;
-    }
-    .mq-dot { color:var(--copper); padding:0 .3rem; }
-    @keyframes mq { from{transform:translateX(0)} to{transform:translateX(-50%)} }
-
-    /* ══════════════════════════════════════
-       SECTIONS COMMON
-    ═══════════════════════════════════════ */
-    section { padding:8rem 5rem; position:relative; }
-
-    .sec-eyebrow {
-      font-family:'Syne',sans-serif; font-size:.64rem;
-      letter-spacing:.22em; text-transform:uppercase;
-      color:var(--copper); margin-bottom:.9rem;
-      display:flex; align-items:center; gap:.55rem;
-    }
-    .sec-eyebrow::before { content:''; width:18px; height:1px; background:var(--copper); }
-
-    .sec-title {
-      font-family:'Syne',sans-serif;
-      font-size:clamp(1.8rem,3.5vw,3.2rem);
-      font-weight:700; line-height:1.08;
-    }
-    .sec-title em { font-family:'Lora',serif; font-style:italic; color:var(--copper); font-weight:400; }
-
-    /* ══════════════════════════════════════
-       PROBLEMA
-    ═══════════════════════════════════════ */
-    #problema { background:var(--surface); }
-
-    .prob-grid {
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:5rem; margin-top:4rem; align-items:start;
-    }
-
-    .prob-list { display:flex; flex-direction:column; gap:1rem; }
-    .prob-item {
-      display:flex; align-items:flex-start; gap:1rem;
-      padding:1.1rem 1.4rem;
-      background:rgba(255,255,255,.03);
-      border:1px solid var(--border);
-      border-left:2px solid rgba(200,120,74,.4);
-      transition:border-left-color .25s, background .25s;
-    }
-    .prob-item:hover { border-left-color:var(--copper); background:rgba(200,120,74,.05); }
-    .pi-icon { font-size:1rem; flex-shrink:0; margin-top:.1rem; }
-    .pi-text { font-family:'Lora',serif; font-size:.86rem; color:var(--mist); line-height:1.65; }
-
-    .sol-box {
-      background:var(--copper3);
-      border:1px solid rgba(200,120,74,.2);
-      padding:2.4rem; position:relative; overflow:hidden;
-    }
-    .sol-box::before {
-      content:''; position:absolute; top:0; left:0; right:0; height:2px;
-      background:linear-gradient(90deg,var(--copper),var(--copper2),transparent);
-    }
-    .sol-title {
-      font-family:'Syne',sans-serif; font-size:1.1rem;
-      font-weight:700; margin-bottom:1rem; color:var(--white);
-    }
-    .sol-text { font-family:'Lora',serif; font-size:.88rem; color:var(--mist); line-height:1.8; }
-
-    /* ══════════════════════════════════════
-       QUÉ HACE
-    ═══════════════════════════════════════ */
-    #que-hace {}
-
-    .feat-grid {
-      display:grid; grid-template-columns:repeat(2,1fr);
-      gap:1px; margin-top:4rem;
-      background:var(--border);
-    }
-    .feat-card {
-      background:var(--bg); padding:2.4rem 2.2rem;
-      position:relative; overflow:hidden;
-      opacity:0; transform:translateY(18px);
-      transition:opacity .65s, transform .65s, background .3s;
-    }
-    .feat-card:hover { background:var(--card); }
-    .feat-card.vis { opacity:1; transform:translateY(0); }
-    .feat-card::before {
-      content:''; position:absolute; top:0; left:0; bottom:0; width:2px;
-      background:var(--copper); transform:scaleY(0); transform-origin:top;
-      transition:transform .4s;
-    }
-    .feat-card:hover::before { transform:scaleY(1); }
-    .fc-num {
-      font-family:'Syne',sans-serif; font-size:3rem;
-      font-weight:800; color:rgba(200,120,74,.1); line-height:1;
-      margin-bottom:1rem;
-    }
-    .fc-title {
-      font-family:'Syne',sans-serif; font-size:.92rem;
-      font-weight:600; margin-bottom:.6rem;
-    }
-    .fc-desc { font-family:'Lora',serif; font-size:.82rem; color:var(--fog); line-height:1.78; }
-
-    /* ══════════════════════════════════════
-       PROCESO
-    ═══════════════════════════════════════ */
-    #proceso { background:var(--surface); }
-
-    .steps {
-      display:grid; grid-template-columns:repeat(4,1fr);
-      gap:0; margin-top:4rem; position:relative;
-    }
-    .steps::before {
-      content:''; position:absolute; top:36px; left:8%; right:8%;
-      height:1px; background:linear-gradient(90deg,transparent,rgba(200,120,74,.3),rgba(124,92,191,.25),transparent);
-    }
-    .step {
-      padding:0 1.5rem 0 0;
-      opacity:0; transform:translateY(16px);
-      transition:opacity .6s, transform .6s;
-    }
-    .step.vis { opacity:1; transform:translateY(0); }
-    .step:not(:first-child) { padding-left:1.5rem; }
-    .step-dot {
-      width:72px; height:72px; border-radius:50%;
-      border:1px solid rgba(200,120,74,.25);
-      display:flex; align-items:center; justify-content:center;
-      margin-bottom:1.4rem; position:relative; z-index:2;
-      background:var(--surface);
-      transition:border-color .3s, background .3s;
-    }
-    .step:hover .step-dot { border-color:var(--copper); background:var(--copper3); }
-    .step-num {
-      font-family:'Syne',sans-serif; font-size:.9rem;
-      font-weight:700; color:var(--copper);
-    }
-    .step-title { font-family:'Syne',sans-serif; font-size:.88rem; font-weight:600; margin-bottom:.5rem; }
-    .step-desc  { font-family:'Lora',serif; font-size:.78rem; color:var(--fog); line-height:1.72; }
-
-    /* ══════════════════════════════════════
-       CASOS DE USO
-    ═══════════════════════════════════════ */
-    #casos {}
-
-    .casos-grid {
-      display:grid; grid-template-columns:repeat(3,1fr);
-      gap:1.5rem; margin-top:4rem;
-    }
-    .caso-card {
-      background:var(--card);
-      border:1px solid var(--border);
-      padding:2.4rem 2rem;
-      position:relative; overflow:hidden;
-      opacity:0; transform:translateY(16px);
-      transition:opacity .65s, transform .65s, border-color .3s;
-    }
-    .caso-card:hover { border-color:rgba(200,120,74,.3); transform:translateY(-4px) !important; }
-    .caso-card.vis { opacity:1; transform:translateY(0); }
-    .caso-card::before {
-      content:''; position:absolute; top:0; left:0; right:0; height:2px;
-    }
-    .caso-card:nth-child(1)::before { background:linear-gradient(90deg,var(--copper),var(--copper2)); }
-    .caso-card:nth-child(2)::before { background:linear-gradient(90deg,var(--teal),#2dd4bf); }
-    .caso-card:nth-child(3)::before { background:linear-gradient(90deg,var(--violet),var(--indigo)); }
-    .caso-tag {
-      font-family:'Syne',sans-serif; font-size:.58rem;
-      letter-spacing:.16em; text-transform:uppercase;
-      padding:.2rem .65rem; border-radius:2px; margin-bottom:1rem;
-      display:inline-block;
-    }
-    .ct-copper { background:var(--copper3); border:1px solid rgba(200,120,74,.25); color:var(--copper); }
-    .ct-teal   { background:rgba(22,160,144,.1); border:1px solid rgba(22,160,144,.25); color:var(--teal); }
-    .ct-violet { background:var(--violet2); border:1px solid rgba(124,92,191,.25); color:#a78bfa; }
-    .caso-name { font-family:'Syne',sans-serif; font-size:1.5rem; font-weight:800; margin-bottom:.2rem; letter-spacing:-.01em; }
-    .caso-sub  { font-family:'Lora',serif; font-size:.74rem; font-style:italic; color:var(--fog); margin-bottom:.9rem; }
-    .caso-desc { display:none; }
-    .caso-feats { display:grid; grid-template-columns:1fr 1fr; gap:.45rem; margin-top:.9rem; border-top:1px solid var(--border); padding-top:.9rem; }
-    .cf-item { display:flex; align-items:flex-start; gap:.5rem; font-family:'Syne',sans-serif; font-size:.68rem; letter-spacing:.02em; color:var(--mist); line-height:1.45; }
-    .cf-dot { width:4px; height:4px; border-radius:50%; flex-shrink:0; margin-top:.38em; }
-
-    /* ══════════════════════════════════════
-       ECOSISTEMA
-    ═══════════════════════════════════════ */
-    #ecosistema { background:var(--surface); }
-
-    .eco-intro {
-      display:grid; grid-template-columns:1fr 1fr;
-      gap:4rem; align-items:center; margin-top:4rem;
-    }
-    .eco-text {}
-    .eco-desc { font-family:'Lora',serif; font-size:.95rem; color:var(--mist); line-height:1.85; margin-top:1.2rem; }
-
-    .eco-products { display:flex; flex-direction:column; gap:1rem; }
-    .eco-product {
-      display:flex; align-items:center; gap:1.2rem;
-      padding:1.2rem 1.4rem;
-      background:var(--bg); border:1px solid var(--border);
-      transition:border-color .25s, background .25s;
-    }
-    .eco-product:hover { border-color:rgba(200,120,74,.3); background:var(--copper3); }
-    .ep-icon { flex-shrink:0; }
-    .ep-info {}
-    .ep-name { font-family:'Syne',sans-serif; font-size:.9rem; font-weight:700; margin-bottom:.15rem; }
-    .ep-line { font-family:'Lora',serif; font-size:.74rem; font-style:italic; color:var(--fog); }
-    .ep-badge {
-      margin-left:auto; flex-shrink:0;
-      font-family:'Syne',sans-serif; font-size:.58rem; letter-spacing:.12em; text-transform:uppercase;
-      padding:.2rem .65rem; border-radius:2px;
-    }
-    .badge-nexo    { background:var(--copper3); border:1px solid rgba(200,120,74,.25); color:var(--copper); }
-    .badge-edu     { background:rgba(22,160,144,.1); border:1px solid rgba(22,160,144,.2); color:var(--teal); }
-    .badge-indigo  { background:rgba(79,70,229,.1); border:1px solid rgba(79,70,229,.2); color:#818cf8; }
-
-    /* ══════════════════════════════════════
-       CTA
-    ═══════════════════════════════════════ */
-    #cta {
-      text-align:center; padding:10rem 5rem;
-      position:relative; overflow:hidden;
-    }
-    #cta::before {
-      content:''; position:absolute; inset:0; pointer-events:none;
-      background:radial-gradient(ellipse 60% 50% at 50% 50%,rgba(200,120,74,.08) 0%,transparent 70%);
-    }
-    .cta-bg-word {
-      position:absolute; top:50%; left:50%; transform:translate(-50%,-50%);
-      font-family:'Syne',sans-serif; font-size:20vw; font-weight:800;
-      color:rgba(200,120,74,.04); pointer-events:none; user-select:none;
-      white-space:nowrap; line-height:1;
-    }
-    .cta-title {
-      font-family:'Syne',sans-serif;
-      font-size:clamp(2.2rem,5.5vw,5rem);
-      font-weight:800; line-height:1.02; margin-bottom:1.4rem;
-      position:relative; z-index:1;
-    }
-    .cta-title em { font-family:'Lora',serif; font-style:italic; color:var(--copper); font-weight:400; }
-    .cta-sub {
-      font-family:'Lora',serif; font-size:.95rem; color:var(--mist);
-      margin-bottom:3rem; max-width:46ch; margin-left:auto; margin-right:auto;
-      position:relative; z-index:1;
-    }
-    .cta-form {
-      display:inline-flex; border:1px solid rgba(200,120,74,.3);
-      overflow:hidden; max-width:480px; width:100%;
-      position:relative; z-index:1;
-    }
-    .cta-form input {
-      flex:1; border:none; background:rgba(200,120,74,.06);
-      outline:none; padding:.95rem 1.4rem;
-      font-family:'Lora',serif; font-size:.88rem; color:var(--white);
-    }
-    .cta-form input::placeholder { color:var(--fog); }
-    .cta-form button {
-      background:var(--copper); color:var(--bg); border:none;
-      padding:.95rem 1.8rem;
-      font-family:'Syne',sans-serif; font-size:.72rem;
-      font-weight:600; letter-spacing:.1em; text-transform:uppercase;
-      cursor:pointer; white-space:nowrap; transition:opacity .2s;
-    }
-    .cta-form button:hover { opacity:.82; }
-
-    /* ══════════════════════════════════════
-       FOOTER
-    ═══════════════════════════════════════ */
-    footer {
-      border-top:1px solid var(--border);
-      padding:2.4rem 5rem;
-      display:flex; justify-content:space-between; align-items:center;
-    }
-    .foot-left { display:flex; align-items:center; gap:.8rem; }
-    .foot-name {
-      font-family:'Syne',sans-serif; font-size:1rem;
-      font-weight:700; letter-spacing:.08em;
-    }
-    .foot-name span { color:var(--copper); }
-    .foot-sep { color:var(--border); }
-    .foot-tag { font-family:'Lora',serif; font-size:.74rem; font-style:italic; color:var(--fog); }
-    .foot-copy { font-family:'Syne',sans-serif; font-size:.64rem; letter-spacing:.08em; color:var(--fog); }
-
-    /* ══════════════════════════════════════
-       REVEAL
-    ═══════════════════════════════════════ */
-    .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s, transform .7s; }
-    .reveal.vis { opacity:1; transform:translateY(0); }
-
-    /* ══════════════════════════════════════
-       RESPONSIVE
-    ═══════════════════════════════════════ */
-    @media(max-width:1024px){
-      nav { padding:1.2rem 1.8rem; }
-      .nav-links { display:none; }
-      section { padding:4rem 1.8rem; }
-      .hero { grid-template-columns:1fr; padding:7rem 1.8rem 4rem; gap:2rem; }
-      .hero-right { order:-1; }
-      .hero-sol svg { width:160px !important; height:160px !important; }
-      .wm-name { font-size:1.6rem; }
-      .wm-parent { font-size:.55rem; }
-      .wm-tag { font-size:.65rem; }
-      .hero-stats { gap:1.8rem; }
-      .stat-v { font-size:1.5rem; }
-      .prob-grid { grid-template-columns:1fr; gap:2rem; }
-      .feat-grid { grid-template-columns:1fr; }
-      .steps { grid-template-columns:1fr 1fr; }
-      .steps::before { display:none; }
-      .step { border-bottom:1px solid var(--border); padding:1.4rem 0; }
-      .casos-grid { grid-template-columns:1fr !important; }
-      .caso-feats { grid-template-columns:1fr !important; }
-      .eco-intro { grid-template-columns:1fr; }
-      footer { padding:2rem 1.8rem; flex-direction:column; gap:1rem; text-align:center; }
-    }
-    @media(max-width:600px){
-      .hero-title { font-size:clamp(2rem,9vw,3rem) !important; }
-      .hero-eyebrow { font-size:.58rem; }
-      .hero-sub { font-size:.9rem; }
-      .hero-stats { gap:1.4rem; }
-      .stat-v { font-size:1.3rem; }
-      .stat-k { font-size:.56rem; }
-      .sec-title { font-size:clamp(1.5rem,6vw,2.2rem); }
-    }
-  </style>
-</head>
+/* V10: true multi-surface organic LUMEN symbol */
+.intro-symbol .lm-morph{animation:none!important;transform:none!important;opacity:1!important}
+.intro-symbol .lm-spark,.intro-symbol .lm-spark-halo{animation:liquidSpark 8s ease both!important;transform-origin:132px 51px}
+.intro-symbol .lm-fold{animation:none!important;opacity:.94!important}
+.intro-symbol svg{overflow:visible;width:100%;height:100%}
+@media(prefers-reduced-motion:reduce){.intro-symbol .lm-morph,.intro-symbol .lm-spark,.intro-symbol .lm-spark-halo{animation:none!important}}
+</style></head>
 <body>
-
-<div id="cur"></div>
-<div id="ring"></div>
-
-<!-- NAV -->
-<nav id="nav">
-  <a class="nav-logo" href="#">
-    <span class="nav-pip"></span>
-    <span class="nav-parent">LUMEN /</span>&nbsp;NEXO
-  </a>
-  <ul class="nav-links">
-    <li><a href="#que-hace">Qué hacemos</a></li>
-    <li><a href="#casos">Casos de uso</a></li>
-    <li><a href="#ecosistema">Ecosistema</a></li>
-    <li><a href="#cta">Contacto</a></li>
-  </ul>
-  <button class="nav-cta" onclick="document.getElementById('cta').scrollIntoView({behavior:'smooth'})">Empezar</button>
-</nav>
-
-<!-- ══ HERO ══ -->
-<section class="hero" id="inicio">
-  <div class="hero-grid"></div>
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
-
-  <div class="hero-left">
-    <div class="hero-eyebrow">
-      <span class="eyebrow-dash"></span>
-      Un producto de LUMEN · Automatización por demanda
-    </div>
-    <h1 class="hero-title">
-      Tus procesos<br>
-      <span class="ht-outline">funcionando</span><br>
-      <span class="ht-copper">solos.</span>
-    </h1>
-    <p class="hero-sub">
-      LUMEN NEXO convierte procesos manuales, repetitivos y desorganizados en <strong>flujos automáticos inteligentes</strong> para negocios, profesionales y emprendedores que quieren escalar sin depender de su tiempo.
-    </p>
-    <div class="hero-btns">
-      <a class="btn-fill" href="#cta">Quiero automatizar</a>
-      <button class="btn-ghost" onclick="document.getElementById('que-hace').scrollIntoView({behavior:'smooth'})">Ver cómo funciona →</button>
-    </div>
-  </div>
-
-  <div class="hero-right">
-    <!-- Sol Modular NEXO animado -->
-    <div class="hero-sol">
-      <svg width="220" height="220" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="100" cy="100" r="96" stroke="rgba(200,120,74,.05)" stroke-width="1" stroke-dasharray="2 10" class="spin-cw"/>
-        <circle cx="100" cy="100" r="82" stroke="rgba(200,120,74,.08)" stroke-width="1" stroke-dasharray="3 9" class="spin-ccw"/>
-        <circle cx="100" cy="100" r="66" stroke="rgba(200,120,74,.14)" stroke-width="1"/>
-        <circle cx="100" cy="100" r="48" stroke="rgba(200,120,74,.1)" stroke-width="1" stroke-dasharray="5 4" class="spin-cw"/>
-        <!-- 5 rays — longer and more elegant -->
-        <rect x="97.5" y="4"  width="5" height="26" rx="2.5" fill="rgba(200,120,74,.85)" transform="rotate(0   100 100)"/>
-        <rect x="97.5" y="4"  width="5" height="26" rx="2.5" fill="rgba(200,120,74,.5)"  transform="rotate(72  100 100)"/>
-        <rect x="97.5" y="4"  width="5" height="26" rx="2.5" fill="rgba(200,120,74,.85)" transform="rotate(144 100 100)"/>
-        <rect x="97.5" y="4"  width="5" height="26" rx="2.5" fill="rgba(200,120,74,.5)"  transform="rotate(216 100 100)"/>
-        <rect x="97.5" y="4"  width="5" height="26" rx="2.5" fill="rgba(200,120,74,.85)" transform="rotate(288 100 100)"/>
-        <!-- Violet nodes -->
-        <circle cx="100" cy="8"  r="6" fill="rgba(124,92,191,.8)"  transform="rotate(0   100 100)"/>
-        <circle cx="100" cy="8"  r="6" fill="rgba(124,92,191,.5)"  transform="rotate(72  100 100)"/>
-        <circle cx="100" cy="8"  r="6" fill="rgba(124,92,191,.8)"  transform="rotate(144 100 100)"/>
-        <circle cx="100" cy="8"  r="6" fill="rgba(124,92,191,.5)"  transform="rotate(216 100 100)"/>
-        <circle cx="100" cy="8"  r="6" fill="rgba(124,92,191,.8)"  transform="rotate(288 100 100)"/>
-        <!-- Core glow layers -->
-        <circle cx="100" cy="100" r="32" fill="rgba(200,120,74,.1)" class="glow"/>
-        <circle cx="100" cy="100" r="22" fill="rgba(200,120,74,.18)" class="glow"/>
-        <circle cx="100" cy="100" r="14" fill="#c8784a"/>
-        <circle cx="100" cy="100" r="6"  fill="#f0b07a"/>
-      </svg>
-    </div>
-    <div class="hero-wordmark">
-      <div class="wm-parent">LUMEN /</div>
-      <div class="wm-name">NEX<span class="cu">O</span></div>
-      <div class="wm-tag">Automatización por demanda</div>
-    </div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-v">10x</div><div class="stat-k">Más rápido</div></div>
-      <div class="stat"><div class="stat-v">0</div><div class="stat-k">Tareas manuales</div></div>
-      <div class="stat"><div class="stat-v">100%</div><div class="stat-k">Automatizado</div></div>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE -->
-<div class="marquee">
-  <div class="marquee-track">
-    <span class="mq-item">Flujos automáticos <span class="mq-dot">·</span></span>
-    <span class="mq-item">Documentos inteligentes <span class="mq-dot">·</span></span>
-    <span class="mq-item">Comunicación automatizada <span class="mq-dot">·</span></span>
-    <span class="mq-item">Control de procesos <span class="mq-dot">·</span></span>
-    <span class="mq-item">Integración de sistemas <span class="mq-dot">·</span></span>
-    <span class="mq-item">Sin código <span class="mq-dot">·</span></span>
-    <span class="mq-item">Escala sin límites <span class="mq-dot">·</span></span>
-    <span class="mq-item">Flujos automáticos <span class="mq-dot">·</span></span>
-    <span class="mq-item">Documentos inteligentes <span class="mq-dot">·</span></span>
-    <span class="mq-item">Comunicación automatizada <span class="mq-dot">·</span></span>
-    <span class="mq-item">Control de procesos <span class="mq-dot">·</span></span>
-    <span class="mq-item">Integración de sistemas <span class="mq-dot">·</span></span>
-    <span class="mq-item">Sin código <span class="mq-dot">·</span></span>
-    <span class="mq-item">Escala sin límites <span class="mq-dot">·</span></span>
-  </div>
-</div>
-
-<!-- ══ PROBLEMA ══ -->
-<section id="problema">
-  <div class="reveal">
-    <p class="sec-eyebrow">El problema real</p>
-    <h2 class="sec-title">Tu negocio crece.<br>Tus procesos <em>no.</em></h2>
-  </div>
-  <div class="prob-grid">
-    <div class="prob-list reveal" style="transition-delay:.1s">
-      <div class="prob-item"><span class="pi-icon">⏱</span><span class="pi-text">Horas perdidas en tareas repetitivas que podrían hacerse solas.</span></div>
-      <div class="prob-item"><span class="pi-icon">🗂</span><span class="pi-text">Información dispersa en hojas, correos y notas sin conexión.</span></div>
-      <div class="prob-item"><span class="pi-icon">❌</span><span class="pi-text">Errores humanos constantes por falta de sistemas claros.</span></div>
-      <div class="prob-item"><span class="pi-icon">📉</span><span class="pi-text">Escalar se vuelve imposible porque todo depende de ti.</span></div>
-      <div class="prob-item"><span class="pi-icon">💸</span><span class="pi-text">Clientes sin respuesta rápida, seguimientos olvidados, dinero perdido.</span></div>
-    </div>
-    <div class="sol-box reveal" style="transition-delay:.2s">
-      <div class="sol-title">LUMEN NEXO automatiza lo que te quita tiempo.</div>
-      <p class="sol-text">Diseñamos e implementamos flujos automáticos que conectan tus herramientas, procesan información y toman acciones sin que tú tengas que intervenir. El resultado: más tiempo, menos errores y un negocio que funciona incluso cuando no estás.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ QUÉ HACE ══ -->
-<section id="que-hace">
-  <div class="reveal">
-    <p class="sec-eyebrow">Qué hacemos</p>
-    <h2 class="sec-title">Automatización <em>real,</em><br>no promesas.</h2>
-  </div>
-  <div class="feat-grid">
-    <div class="feat-card">
-      <div class="fc-num">01</div>
-      <div class="fc-title">Flujos automáticos a medida</div>
-      <p class="fc-desc">Desde que un cliente llena un formulario hasta que recibe su propuesta, contrato o confirmación — sin que toques nada. Cada proceso se diseña específicamente para tu negocio.</p>
-    </div>
-    <div class="feat-card" style="transition-delay:.1s">
-      <div class="fc-num">02</div>
-      <div class="fc-title">Documentos y contratos automáticos</div>
-      <p class="fc-desc">Cotizaciones, propuestas, contratos y reportes generados desde plantillas con datos reales. Listos para enviarse en segundos, con formato profesional y consistente.</p>
-    </div>
-    <div class="feat-card" style="transition-delay:.15s">
-      <div class="fc-num">03</div>
-      <div class="fc-title">Comunicación en piloto automático</div>
-      <p class="fc-desc">Seguimientos, confirmaciones, recordatorios y notificaciones que salen solos en el momento correcto. Sin que tengas que recordarlo ni programarlo manualmente.</p>
-    </div>
-    <div class="feat-card" style="transition-delay:.2s">
-      <div class="fc-num">04</div>
-      <div class="fc-title">Sistemas conectados entre sí</div>
-      <p class="fc-desc">Tus herramientas de trabajo — formularios, hojas de cálculo, correo, WhatsApp, calendarios — trabajando juntas como un solo sistema coherente y sin fricciones.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ PROCESO ══ -->
-<section id="proceso">
-  <div class="reveal">
-    <p class="sec-eyebrow">Cómo trabajamos</p>
-    <h2 class="sec-title">De proceso <em>manual</em><br>a sistema <em>autónomo.</em></h2>
-  </div>
-  <div class="steps">
-    <div class="step">
-      <div class="step-dot"><span class="step-num">01</span></div>
-      <div class="step-title">Diagnóstico</div>
-      <p class="step-desc">Mapeamos tus procesos actuales, identificamos lo repetitivo y definimos qué automatizar primero para el mayor impacto.</p>
-    </div>
-    <div class="step" style="transition-delay:.1s">
-      <div class="step-dot"><span class="step-num">02</span></div>
-      <div class="step-title">Diseño del flujo</div>
-      <p class="step-desc">Construimos la arquitectura del sistema — qué herramientas, qué datos, qué lógica y qué resultado esperamos en cada etapa.</p>
-    </div>
-    <div class="step" style="transition-delay:.2s">
-      <div class="step-dot"><span class="step-num">03</span></div>
-      <div class="step-title">Implementación</div>
-      <p class="step-desc">Construimos e integramos todo el sistema. Tú no necesitas saber nada técnico — solo darnos acceso a las herramientas que ya usas.</p>
-    </div>
-    <div class="step" style="transition-delay:.3s">
-      <div class="step-dot"><span class="step-num">04</span></div>
-      <div class="step-title">Operación autónoma</div>
-      <p class="step-desc">El sistema corre solo. Tú recibes resultados, notificaciones y reportes sin intervenir en cada paso del proceso.</p>
-    </div>
-  </div>
-</section>
-
-<!-- ══ CASOS DE USO ══ -->
-<section id="casos">
-  <div class="reveal">
-    <p class="sec-eyebrow">Casos de uso</p>
-    <h2 class="sec-title">Lo que ya <em>funciona.</em></h2>
-  </div>
-  <div class="casos-grid" style="grid-template-columns:repeat(2,1fr); gap:1.5rem;">
-
-    <!-- Boda OS -->
-    <div class="caso-card">
-      <span class="caso-tag ct-copper">LUMEN NEXO · Bodas</span>
-      <div class="caso-name">Boda OS</div>
-      <div class="caso-sub">Sistema de gestión para wedding planners</div>
-      <p class="caso-desc">Sistema completo de seguimiento financiero y operativo para wedding planners. Automatiza cotizaciones, contratos, pagos y comunicación con clientes desde un solo panel.</p>
-      <div class="caso-feats">
-        <div class="cf-item"><span class="cf-dot" style="background:var(--copper)"></span>Seguimiento financiero por rubros automático</div>
-        <div class="cf-item"><span class="cf-dot" style="background:var(--copper)"></span>Documentos con membrete profesional</div>
-        <div class="cf-item"><span class="cf-dot" style="background:var(--copper)"></span>Cuenta regresiva y alertas automáticas</div>
-        <div class="cf-item"><span class="cf-dot" style="background:var(--copper)"></span>Versiones para WhatsApp y correo</div>
-      </div>
-    </div>
-
-    <!-- Dental OS -->
-    <div class="caso-card" style="transition-delay:.12s">
-      <span class="caso-tag" style="background:rgba(45,212,191,.1);border:1px solid rgba(45,212,191,.25);color:#2dd4bf;">LUMEN NEXO · Salud</span>
-      <div class="caso-name">Dental OS</div>
-      <div class="caso-sub">Sistema de gestión para clínicas dentales</div>
-      <p class="caso-desc">Sistema completo para clínicas dentales que automatiza el seguimiento de pacientes, historial clínico, recordatorios y campañas de retorno — todo con la imagen de la clínica.</p>
-      <div class="caso-feats">
-        <div class="cf-item"><span class="cf-dot" style="background:#2dd4bf"></span>Base de datos y historial clínico automático</div>
-        <div class="cf-item"><span class="cf-dot" style="background:#2dd4bf"></span>Confirmaciones, recordatorios y agenda del doctor</div>
-        <div class="cf-item"><span class="cf-dot" style="background:#2dd4bf"></span>Campañas segmentadas de retorno</div>
-        <div class="cf-item"><span class="cf-dot" style="background:#2dd4bf"></span>Portal privado con marca de la clínica</div>
-      </div>
-    </div>
-
-    <!-- Lumen Docs -->
-    <div class="caso-card" style="transition-delay:.18s">
-      <span class="caso-tag ct-teal">LUMEN NEXO · Educación</span>
-      <div class="caso-name">Lumen Docs</div>
-      <div class="caso-sub">Automatización documental para colegios</div>
-      <p class="caso-desc">Sistema que genera documentos oficiales — circulares, oficios, comunicados — de forma automática con membrete institucional, folio y distribución multicanal.</p>
-      <div class="caso-feats">
-        <div class="cf-item"><span class="cf-dot" style="background:var(--teal)"></span>Generación desde formulario en segundos</div>
-        <div class="cf-item"><span class="cf-dot" style="background:var(--teal)"></span>Folio consecutivo automático</div>
-        <div class="cf-item"><span class="cf-dot" style="background:var(--teal)"></span>PDF, WhatsApp y correo en un solo paso</div>
-        <div class="cf-item"><span class="cf-dot" style="background:var(--teal)"></span>Historial y control de documentos</div>
-      </div>
-    </div>
-
-    <!-- Tu negocio -->
-    <div class="caso-card" style="transition-delay:.24s">
-      <span class="caso-tag ct-violet">LUMEN NEXO · A medida</span>
-      <div class="caso-name">Tu negocio</div>
-      <div class="caso-sub">Sistema diseñado para tu proceso específico</div>
-      <p class="caso-desc">NEXO se adapta a cualquier industria. Si tienes un proceso que se repite, consume tiempo o depende de ti para funcionar — podemos automatizarlo.</p>
-      <div class="caso-feats">
-        <div class="cf-item"><span class="cf-dot" style="background:#a78bfa"></span>Diagnóstico gratuito de procesos</div>
-        <div class="cf-item"><span class="cf-dot" style="background:#a78bfa"></span>Diseño personalizado del flujo</div>
-        <div class="cf-item"><span class="cf-dot" style="background:#a78bfa"></span>Implementación sin que necesites código</div>
-        <div class="cf-item"><span class="cf-dot" style="background:#a78bfa"></span>Soporte continuo incluido</div>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- ══ ECOSISTEMA ══ -->
-<section id="ecosistema">
-  <div class="reveal">
-    <p class="sec-eyebrow">El ecosistema LUMEN</p>
-    <h2 class="sec-title">NEXO es parte de<br>algo <em>más grande.</em></h2>
-  </div>
-  <div class="eco-intro">
-    <div class="eco-text reveal" style="transition-delay:.1s">
-      <p class="eco-desc">LUMEN es la plataforma madre de inteligencia y automatización. NEXO es su rama de negocios — aplica la misma lógica de sistemas al mundo empresarial, más allá del sector educativo.</p>
-      <p class="eco-desc" style="margin-top:1rem;">Cada producto del ecosistema comparte la misma filosofía: <strong style="color:var(--white); font-weight:500;">transformar procesos manuales en sistemas inteligentes que funcionan solos.</strong></p>
-    </div>
-    <div class="eco-products reveal" style="transition-delay:.2s">
-
-      <div class="eco-product">
-        <div class="ep-icon">
-          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="24" r="22" fill="rgba(200,120,74,.1)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(0   24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(200,120,74,.5)" transform="rotate(72  24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(144 24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(200,120,74,.5)" transform="rotate(216 24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(288 24 24)"/>
-            <circle cx="24" cy="24" r="7" fill="#c8784a"/><circle cx="24" cy="24" r="3" fill="#e09a6a"/>
-          </svg>
-        </div>
-        <div class="ep-info">
-          <div class="ep-name">LUMEN NEXO</div>
-          <div class="ep-line">Automatización para negocios y emprendedores</div>
-        </div>
-        <span class="ep-badge badge-nexo">Aquí estás</span>
-      </div>
-
-      <div class="eco-product">
-        <div class="ep-icon">
-          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="24" r="22" fill="rgba(22,160,144,.09)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.75)" transform="rotate(0   24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.45)" transform="rotate(60  24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.75)" transform="rotate(120 24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.45)" transform="rotate(180 24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.75)" transform="rotate(240 24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(22,160,144,.45)" transform="rotate(300 24 24)"/>
-            <circle cx="24" cy="24" r="7" fill="#16a090"/><circle cx="24" cy="24" r="3" fill="#7addd6"/>
-          </svg>
-        </div>
-        <div class="ep-info">
-          <div class="ep-name">MENTEA</div>
-          <div class="ep-line">Evaluación psicopedagógica para escuelas</div>
-        </div>
-        <span class="ep-badge badge-edu">Educativo</span>
-      </div>
-
-      <div class="eco-product">
-        <div class="ep-icon">
-          <svg width="32" height="32" viewBox="0 0 48 48" fill="none">
-            <circle cx="24" cy="24" r="22" fill="rgba(79,70,229,.09)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(79,70,229,.8)" transform="rotate(0   24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(79,70,229,.8)" transform="rotate(90  24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(79,70,229,.8)" transform="rotate(180 24 24)"/>
-            <rect x="22.5" y="2" width="3" height="7" rx="1.5" fill="rgba(79,70,229,.8)" transform="rotate(270 24 24)"/>
-            <circle cx="24" cy="24" r="7" fill="#4f46e5"/><circle cx="24" cy="24" r="3" fill="#a5b4fc"/>
-          </svg>
-        </div>
-        <div class="ep-info">
-          <div class="ep-name">LUMEN DOCS</div>
-          <div class="ep-line">Automatización documental para colegios</div>
-        </div>
-        <span class="ep-badge badge-indigo">Educativo</span>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- ══ CTA ══ -->
-<section id="cta">
-  <div class="cta-bg-word">NEXO</div>
-  <p class="sec-eyebrow" style="justify-content:center;">Da el primer paso</p>
-  <h2 class="cta-title reveal">
-    ¿Listo para que tus<br>
-    procesos corran <em>solos?</em>
-  </h2>
-  <p class="cta-sub reveal" style="transition-delay:.15s;">
-    Agenda una llamada de diagnóstico gratuita. En 30 minutos identificamos qué automatizar primero y cómo hacerlo.
-  </p>
-  <div class="cta-form reveal" style="transition-delay:.3s;">
-    <input type="email" placeholder="tucorreo@aqui.com" id="ctaEmail"/>
-    <button onclick="handleCTA()">Agendar llamada</button>
-  </div>
-  <p style="font-family:'Lora',serif; font-size:.75rem; font-style:italic; color:var(--fog); margin-top:1rem; position:relative; z-index:1;" class="reveal" style="transition-delay:.45s;">Sin costo · Sin compromiso · Respuesta en menos de 24h</p>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  <div class="foot-left">
-    <svg width="22" height="22" viewBox="0 0 48 48" fill="none">
-      <circle cx="24" cy="24" r="22" fill="rgba(200,120,74,.1)"/>
-      <rect x="22.5" y="2" width="3" height="6" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(0   24 24)"/>
-      <rect x="22.5" y="2" width="3" height="6" rx="1.5" fill="rgba(200,120,74,.5)" transform="rotate(72  24 24)"/>
-      <rect x="22.5" y="2" width="3" height="6" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(144 24 24)"/>
-      <rect x="22.5" y="2" width="3" height="6" rx="1.5" fill="rgba(200,120,74,.5)" transform="rotate(216 24 24)"/>
-      <rect x="22.5" y="2" width="3" height="6" rx="1.5" fill="rgba(200,120,74,.8)" transform="rotate(288 24 24)"/>
-      <circle cx="24" cy="24" r="7" fill="#c8784a"/><circle cx="24" cy="24" r="3" fill="#e09a6a"/>
-    </svg>
-    <span class="foot-name">LUMEN <span>NEXO</span></span>
-    <span class="foot-sep">·</span>
-    <span class="foot-tag">Automatización por demanda</span>
-  </div>
-  <div class="foot-copy">© 2025 LUMEN · lumennexo.com</div>
-</footer>
-
+<canvas id="ambient" aria-hidden="true"></canvas><div class="grain" aria-hidden="true"></div>
+<div class="intro" id="intro" aria-label="Presentación de LUMEN"><div class="intro-orb"></div><div class="intro-ring"></div><div class="intro-content intro-v4"><div class="intro-symbol"><svg class="lumen-mark" viewBox="0 0 180 160" role="img" aria-label="Logotipo LUMEN, formas orgánicas que se unen"><defs>
+<linearGradient id="lmA" x1="0" y1="0" x2=".95" y2="1"><stop stop-color="#d7f4e9"/><stop offset=".25" stop-color="#8bc9c3"/><stop offset=".68" stop-color="#2e929a"/><stop offset="1" stop-color="#126174"/></linearGradient>
+<linearGradient id="lmB" x1=".1" y1="0" x2="1" y2="1"><stop stop-color="#f8edcf"/><stop offset=".35" stop-color="#d4b37d"/><stop offset=".68" stop-color="#77a9a3"/><stop offset="1" stop-color="#247d87"/></linearGradient>
+<linearGradient id="lmD" x1="0" y1=".1" x2="1" y2=".9"><stop stop-color="#1c7585"/><stop offset=".4" stop-color="#49aeb0"/><stop offset=".76" stop-color="#98d8c9"/><stop offset="1" stop-color="#f0d3a3"/></linearGradient>
+<linearGradient id="lmE" x1=".1" y1=".9" x2=".9" y2=".1"><stop stop-color="#e4bb7e"/><stop offset=".38" stop-color="#f7e3b9"/><stop offset=".78" stop-color="#72bbb5"/><stop offset="1" stop-color="#287e8a"/></linearGradient>
+<radialGradient id="lmDot"><stop stop-color="#fff8dd"/><stop offset=".48" stop-color="#f7dca4"/><stop offset="1" stop-color="#c69d62"/></radialGradient>
+<filter id="lmGlow" x="-100%" y="-100%" width="300%" height="300%"><feGaussianBlur stdDeviation="5"/></filter>
+</defs>
+<path class="lm-morph lm-wing-a" d="M43 13 C75 13 88 41 88 72 C88 101 75 126 58 137 C47 122 43 101 43 75 Z" fill="url(#lmA)"/>
+<path class="lm-morph lm-inner" d="M70 23 C90 41 91 64 88 83 C84 106 69 128 58 137 C69 108 72 84 67 61 C64 45 66 31 70 23 Z" fill="url(#lmB)" opacity=".97"/>
+<path class="lm-morph lm-wing-b" d="M58 137 C82 102 112 88 141 91 C160 93 169 114 168 137 C139 138 105 137 58 137 Z" fill="url(#lmD)"/>
+<path class="lm-morph lm-fold" d="M58 137 C73 113 86 103 102 103 C122 103 135 113 151 130 C120 122 95 125 77 133 C68 137 62 138 58 137 Z" fill="url(#lmE)" opacity=".94"/>
+<circle class="lm-spark-halo" cx="132" cy="51" r="15" fill="#f4d8a4" opacity=".35" filter="url(#lmGlow)"/>
+<circle class="lm-spark" cx="132" cy="51" r="8.5" fill="url(#lmDot)"/>
+</svg></div><div class="intro-wordmark">LUMEN</div><div class="intro-descriptor">EXPERIENCIAS DIGITALES</div><div class="intro-tagline">Tu tiempo merece algo mejor.</div><div class="intro-progress"></div></div><button class="skip" id="skip">Saltar introducción ↗</button></div>
+<div class="menu-overlay" id="menuOverlay" aria-hidden="true"><div class="wipe"></div><div class="wipe second"></div><div class="wipe third"></div><div class="menu-inner"><div class="menu-top"><div class="brand"><svg class="lumen-mark" viewBox="0 0 180 160" role="img" aria-label="Símbolo LUMEN"><defs><linearGradient id="lmA" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b6e6dc"/><stop offset=".55" stop-color="#3faaa8"/><stop offset="1" stop-color="#16717e"/></linearGradient><linearGradient id="lmB" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#1f888f"/><stop offset=".52" stop-color="#84cec3"/><stop offset="1" stop-color="#e2c69d"/></linearGradient><linearGradient id="lmC" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f3e4c5"/><stop offset="1" stop-color="#b88d55"/></linearGradient></defs><path class="lm-wing lm-wing-a" d="M43 17 C75 17 91 48 89 85 C85 109 71 125 56 137 C51 111 43 91 43 67 Z" fill="url(#lmA)"/><path class="lm-wing lm-wing-b" d="M57 137 C74 97 112 82 145 91 C164 97 170 119 168 138 Z" fill="url(#lmB)"/><path class="lm-fold" d="M57 137 C70 111 82 93 89 85 C85 109 73 127 57 137 Z" fill="url(#lmC)"/><circle class="lm-spark" cx="133" cy="50" r="9" fill="url(#lmC)"/></svg><span>LUMEN</span></div><button class="close-menu" id="closeMenu" aria-label="Cerrar menú">×</button></div><ul class="menu-list"><li><a href="#inicio"><strong>Inicio</strong><small>01</small></a></li><li><a href="#soluciones"><strong>Soluciones</strong><small>02</small></a></li><li><a href="#metodo"><strong>Cómo trabajamos</strong><small>03</small></a></li><li><a href="#diagnostico"><strong>Cuéntanos tu reto</strong><small>04</small></a></li><li><a href="#contacto"><strong>Contacto</strong><small>05</small></a></li></ul><div class="menu-foot"><span>TECNOLOGÍA CON SENTIDO</span><span>DISEÑADO PARA SIMPLIFICAR</span></div></div></div>
+<div class="site"><header class="topbar shell"><a class="brand" href="#inicio" aria-label="LUMEN, inicio"><svg class="lumen-mark" viewBox="0 0 180 160" role="img" aria-label="Símbolo LUMEN"><defs><linearGradient id="lmA" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b6e6dc"/><stop offset=".55" stop-color="#3faaa8"/><stop offset="1" stop-color="#16717e"/></linearGradient><linearGradient id="lmB" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#1f888f"/><stop offset=".52" stop-color="#84cec3"/><stop offset="1" stop-color="#e2c69d"/></linearGradient><linearGradient id="lmC" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f3e4c5"/><stop offset="1" stop-color="#b88d55"/></linearGradient></defs><path class="lm-wing lm-wing-a" d="M43 17 C75 17 91 48 89 85 C85 109 71 125 56 137 C51 111 43 91 43 67 Z" fill="url(#lmA)"/><path class="lm-wing lm-wing-b" d="M57 137 C74 97 112 82 145 91 C164 97 170 119 168 138 Z" fill="url(#lmB)"/><path class="lm-fold" d="M57 137 C70 111 82 93 89 85 C85 109 73 127 57 137 Z" fill="url(#lmC)"/><circle class="lm-spark" cx="133" cy="50" r="9" fill="url(#lmC)"/></svg><span class="brand-copy">LUMEN<small>EXPERIENCIAS DIGITALES</small></span></a><div class="top-actions"><a href="#soluciones" class="top-link">Nuestras soluciones</a><button class="menu-toggle" id="openMenu" aria-controls="menuOverlay" aria-expanded="false">Menú <span class="glyph">+</span></button></div></header>
+<main><section id="inicio" class="hero shell"><div class="eyebrow reveal">Tecnología que libera posibilidades</div><h1 class="reveal">Tu tiempo merece <em>algo mejor.</em></h1><p class="hero-sub reveal">Diseñamos tecnología para simplificar lo que haces todos los días.</p><div class="hero-bottom reveal"><a class="primary-cta" href="#soluciones">Descubre lo que hacemos <span class="cta-arrow">↗</span></a><div class="scroll-note"><span class="scroll-line"></span>Desliza para explorar</div></div></section>
+<section id="soluciones" class="section"><div class="shell"><div class="section-heading reveal"><div><div class="eyebrow">Un ecosistema de posibilidades</div><h2>Menos procesos.<br>Más posibilidades.</h2></div><p>Herramientas diseñadas alrededor de las personas, los negocios y las ideas que merecen avanzar.</p></div><div class="service-grid"><a class="service reveal" href="#diagnostico"><div class="service-number">01 / EDUCACIÓN</div><div class="service-symbol" aria-hidden="true">✳</div><div class="service-bottom"><div><h3>LUMEN Educación</h3><p>GELIK · ORBI · REDAX · PULSE · NIVIA · MENTEA<br>Conectamos y simplificamos la vida escolar.</p></div><span class="service-arrow">↗</span></div></a><a class="service reveal" href="#diagnostico"><div class="service-number">02 / NEGOCIOS</div><div class="service-symbol" aria-hidden="true">◌</div><div class="service-bottom"><div><h3>LUMEN Negocios</h3><p>BARBER OS · BELLA OS · BODAS OS · MEDÍ OS<br>Más orden para que tu negocio crezca.</p></div><span class="service-arrow">↗</span></div></a><a class="service reveal" href="#diagnostico"><div class="service-number">03 / A TU MEDIDA</div><div class="service-symbol" aria-hidden="true">↗</div><div class="service-bottom"><div><h3>Soluciones únicas</h3><p>¿Un proceso repetitivo? ¿Una idea por resolver? Diseñemos una experiencia que trabaje contigo.</p></div><span class="service-arrow">↗</span></div></a></div></div></section>
+<section id="metodo" class="section"><div class="shell"><div class="section-heading reveal"><div><div class="eyebrow">Nuestro método</div><h2>Lo complejo puede<br>ser sencillo.</h2></div><p>No empezamos por el software. Empezamos por comprender qué te quita tiempo y qué te gustaría lograr.</p></div><div class="process"><div class="step reveal"><span class="num">01 / CONECTAMOS</span><h3>Escuchamos.</h3><p>Entendemos tu rutina, tus retos y lo que realmente necesitas.</p></div><div class="step reveal"><span class="num">02 / IMAGINAMOS</span><h3>Diseñamos.</h3><p>Convertimos necesidades reales en experiencias digitales claras.</p></div><div class="step reveal"><span class="num">03 / TRANSFORMAMOS</span><h3>Simplificamos.</h3><p>La tecnología hace su parte para que tú puedas dedicarte a la tuya.</p></div></div></div></section>
+<span id="cta" aria-hidden="true" style="display:block;position:relative;top:-72px"></span><section id="diagnostico" class="section discovery"><div class="shell"><div class="section-heading reveal"><div><div class="eyebrow">Empecemos por escucharte</div><h2>Cuéntanos qué te gustaría simplificar.</h2></div><p>No necesitas saber de tecnología. Solo queremos entender cómo trabajas y qué te gustaría mejorar.</p></div><div class="discovery-card reveal"><div class="discovery-top"><span>LUMEN / DESCUBRIMIENTO</span><span id="questionCount">01 / 05</span></div><div class="discovery-progress"><span id="questionProgress"></span></div><form id="discoveryForm" novalidate><div id="questionStage" aria-live="polite"></div><div class="discovery-actions"><button type="button" class="secondary-btn" id="prevQuestion" hidden>← Anterior</button><button type="button" class="primary-cta" id="nextQuestion">Continuar <span class="cta-arrow">↗</span></button></div></form><div id="discoveryComplete" hidden><div class="eyebrow">Tu información está lista</div><h3>Revisaremos lo que nos contaste y nos pondremos en contacto contigo.</h3><p>En esta versión de prueba todavía no se envían datos. Puedes copiar las respuestas para revisar cómo quedaría el registro.</p><button class="primary-cta" type="button" id="copyLead">Copiar respuestas <span class="cta-arrow">↗</span></button><p id="copyFeedback" role="status"></p></div></div></div></section>
+<section id="contacto" class="manifesto shell reveal"><div class="eyebrow" style="justify-content:center">Conversemos</div><h2>Las mejores soluciones empiezan por <em>escuchar.</em></h2><p>Cuéntanos qué te gustaría transformar. Revisaremos tu información y nos pondremos en contacto contigo.</p><a class="primary-cta" href="#diagnostico">Cuéntanos tu reto <span class="cta-arrow">↗</span></a></section></main>
+<footer class="footer shell"><strong class="footer-brand"><svg class="lumen-mark" viewBox="0 0 180 160" role="img" aria-label="Símbolo LUMEN"><defs><linearGradient id="lmA" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#b6e6dc"/><stop offset=".55" stop-color="#3faaa8"/><stop offset="1" stop-color="#16717e"/></linearGradient><linearGradient id="lmB" x1="0" y1="1" x2="1" y2="0"><stop stop-color="#1f888f"/><stop offset=".52" stop-color="#84cec3"/><stop offset="1" stop-color="#e2c69d"/></linearGradient><linearGradient id="lmC" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f3e4c5"/><stop offset="1" stop-color="#b88d55"/></linearGradient></defs><path class="lm-wing lm-wing-a" d="M43 17 C75 17 91 48 89 85 C85 109 71 125 56 137 C51 111 43 91 43 67 Z" fill="url(#lmA)"/><path class="lm-wing lm-wing-b" d="M57 137 C74 97 112 82 145 91 C164 97 170 119 168 138 Z" fill="url(#lmB)"/><path class="lm-fold" d="M57 137 C70 111 82 93 89 85 C85 109 73 127 57 137 Z" fill="url(#lmC)"/><circle class="lm-spark" cx="133" cy="50" r="9" fill="url(#lmC)"/></svg> LUMEN</strong><span>Tu tiempo merece algo mejor.</span><span>© <span id="year"></span> LUMEN</span></footer></div>
 <script>
-// Cursor
-var cur=document.getElementById('cur'),ring=document.getElementById('ring');
-var mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',function(e){
-  mx=e.clientX; my=e.clientY;
-  cur.style.transform='translate('+(mx-5)+'px,'+(my-5)+'px)';
-});
-(function loop(){
-  rx+=(mx-rx-18)*.12; ry+=(my-ry-18)*.12;
-  ring.style.transform='translate('+rx+'px,'+ry+'px)';
-  requestAnimationFrame(loop);
+(()=>{'use strict';
+const intro=document.getElementById('intro'),skip=document.getElementById('skip'),overlay=document.getElementById('menuOverlay'),openBtn=document.getElementById('openMenu'),closeBtn=document.getElementById('closeMenu');let introFinished=false,menuTimer;
+function finishIntro(){if(introFinished)return;introFinished=true;intro.classList.add('done');setTimeout(()=>{intro.setAttribute('aria-hidden','true');},1350)}
+if(matchMedia('(prefers-reduced-motion: reduce)').matches){finishIntro()}else{setTimeout(finishIntro,8000)}skip.addEventListener('click',finishIntro);
+function setMenu(open){clearTimeout(menuTimer);if(open){overlay.classList.remove('closing');overlay.classList.add('open');overlay.setAttribute('aria-hidden','false');openBtn.setAttribute('aria-expanded','true');document.body.style.overflow='hidden';setTimeout(()=>closeBtn.focus(),600)}else{overlay.classList.add('closing');overlay.classList.remove('open');overlay.setAttribute('aria-hidden','true');openBtn.setAttribute('aria-expanded','false');document.body.style.overflow='';menuTimer=setTimeout(()=>{overlay.classList.remove('closing');openBtn.focus()},1050)}}
+openBtn.addEventListener('click',()=>setMenu(true));closeBtn.addEventListener('click',()=>setMenu(false));overlay.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>setMenu(false)));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&overlay.classList.contains('open'))setMenu(false)});
+document.getElementById('year').textContent=new Date().getFullYear();
+const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');observer.unobserve(entry.target)}}),{threshold:.09});document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// Integrated discovery experience. Demo-only: never transmits or persists personal information.
+const qs=[{title:'¿Qué parte de tu trabajo te gustaría hacer más sencilla?',options:['Organizar citas y horarios','Administrar información o pagos','Comunicarme con mis clientes','Otro proceso']},{title:'¿Qué sucede actualmente con esa tarea?',options:['Me consume demasiado tiempo','Se me olvidan cosas importantes','Dependo de mensajes o registros manuales','Quiero ofrecer una mejor experiencia']},{title:'Si pudieras cambiar algo mañana, ¿qué sería?',options:['Tener todo más organizado','Automatizar tareas repetitivas','Facilitar la experiencia de mis clientes','Crear algo que todavía no existe']},{title:'Cuéntanos un poco más sobre tu actividad.',text:true},{title:'¿Cómo podemos ponernos en contacto contigo?',contact:true}];
+const stage=document.getElementById('questionStage'),next=document.getElementById('nextQuestion'),prev=document.getElementById('prevQuestion'),counter=document.getElementById('questionCount'),progress=document.getElementById('questionProgress'),form=document.getElementById('discoveryForm');let qstep=0;const lead={};
+function safe(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function renderQuestion(){let q=qs[qstep];counter.textContent=String(qstep+1).padStart(2,'0')+' / 05';progress.style.width=((qstep+1)/qs.length*100)+'%';prev.hidden=qstep===0;next.innerHTML=(qstep===qs.length-1?'Revisar información':'Continuar')+' <span class="cta-arrow">↗</span>';let html='<h3>'+safe(q.title)+'</h3>';
+if(q.options){html+='<div class="discovery-options">'+q.options.map(o=>'<label class="discovery-option"><input type="radio" name="response" value="'+safe(o)+'" '+(lead['q'+qstep]===o?'checked':'')+'><span>'+safe(o)+'</span></label>').join('')+'</div>'}
+if(q.text){html+='<label class="discovery-field">¿A qué se dedica tu negocio o proyecto?<input class="discovery-input" name="business" maxlength="120" value="'+safe(lead.business)+'" placeholder="Por ejemplo: salón de belleza"></label><label class="discovery-field">¿Qué te gustaría que supiéramos?<textarea class="discovery-textarea" name="details" maxlength="1500" placeholder="Cuéntanos cómo trabajas actualmente...">'+safe(lead.details)+'</textarea></label>'}
+if(q.contact){html+='<label class="discovery-field">Nombre<input class="discovery-input" name="name" autocomplete="name" maxlength="120" value="'+safe(lead.name)+'" required></label><label class="discovery-field">WhatsApp o teléfono<input class="discovery-input" name="phone" autocomplete="tel" type="tel" maxlength="35" value="'+safe(lead.phone)+'" required></label><label class="discovery-field">Correo electrónico<input class="discovery-input" name="email" autocomplete="email" type="email" maxlength="180" value="'+safe(lead.email)+'" required></label><label class="discovery-consent"><input type="checkbox" name="consent" '+(lead.consent?'checked':'')+'><span>Autorizo que LUMEN utilice estos datos para revisar mi solicitud y contactarme sobre ella. Antes de publicar deberá incluirse el aviso de privacidad oficial.</span></label><p class="discovery-note">Demostración: tus respuestas no se envían ni se almacenan.</p>'}
+stage.innerHTML=html+'<p id="questionError" class="discovery-error" role="alert" hidden></p>';}
+function storeCurrent(){const d=new FormData(form);if(qs[qstep].options){const v=d.get('response');if(!v)return 'Selecciona una opción para continuar.';lead['q'+qstep]=v;}else if(qs[qstep].text){lead.business=String(d.get('business')||'').trim();lead.details=String(d.get('details')||'').trim();if(!lead.business||!lead.details)return 'Completa ambos campos para continuar.';}else{for(const k of ['name','phone','email'])lead[k]=String(d.get(k)||'').trim();lead.consent=d.has('consent');if(!lead.name||!lead.phone||!lead.email)return 'Completa tus datos de contacto.';if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(lead.email))return 'Revisa tu correo electrónico.';if(!lead.consent)return 'Necesitamos tu autorización para contactarte.';}return null;}
+next.addEventListener('click',()=>{const error=storeCurrent();if(error){const el=document.getElementById('questionError');el.textContent=error;el.hidden=false;return;}if(qstep<qs.length-1){qstep++;renderQuestion();}else{form.hidden=true;document.getElementById('discoveryComplete').hidden=false;counter.textContent='05 / 05';progress.style.width='100%';}});
+prev.addEventListener('click',()=>{if(qstep>0){storeCurrent();qstep--;renderQuestion();}});
+document.getElementById('copyLead').addEventListener('click',async()=>{const result={respuestas:qs.slice(0,3).map((q,i)=>({pregunta:q.title,respuesta:lead['q'+i]})),actividad:lead.business,descripcion:lead.details,nombre:lead.name,telefono:lead.phone,correo:lead.email,autorizacion_contacto:lead.consent};const str=JSON.stringify(result,null,2);try{await navigator.clipboard.writeText(str);document.getElementById('copyFeedback').textContent='Respuestas copiadas.';}catch(e){document.getElementById('copyFeedback').textContent='No fue posible copiar automáticamente en este navegador.';}});renderQuestion();
+
+// Lightweight canvas: living teal/gold light filaments and slow floating particles.
+const canvas=document.getElementById('ambient'),ctx=canvas.getContext('2d',{alpha:true});if(!ctx)return;const reduced=matchMedia('(prefers-reduced-motion: reduce)'),coarse=matchMedia('(pointer:coarse)').matches;let w=0,h=0,dpr=1,raf=0,visible=true,mouse={x:.68,y:.43},particles=[];
+function resize(){dpr=Math.min(devicePixelRatio||1,1.6);w=innerWidth;h=innerHeight;canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);canvas.style.width=w+'px';canvas.style.height=h+'px';ctx.setTransform(dpr,0,0,dpr,0,0);let count=Math.min(coarse?36:75,Math.max(25,Math.floor(w*h/16000)));particles=Array.from({length:count},(_,i)=>({x:Math.random()*w,y:Math.random()*h,r:.4+Math.random()*1.8,v:.15+Math.random()*.35,p:Math.random()*6.28,teal:i%4!==0}))}
+function draw(t){if(!visible)return;const time=t*.00027;ctx.clearRect(0,0,w,h);let x=w*(coarse?.72:mouse.x),y=h*(coarse?.33:mouse.y);const g=ctx.createRadialGradient(x,y,0,x,y,Math.max(w,h)*.65);g.addColorStop(0,'rgba(38,139,137,.24)');g.addColorStop(.28,'rgba(25,105,111,.15)');g.addColorStop(.7,'rgba(13,49,68,.06)');g.addColorStop(1,'rgba(9,25,35,0)');ctx.fillStyle=g;ctx.fillRect(0,0,w,h);
+ctx.globalCompositeOperation='screen';for(let i=0;i<7;i++){const offset=i*.64;ctx.beginPath();const originY=h*(.22+i*.085);for(let xx=-30;xx<=w+30;xx+=12){const wave=Math.sin(xx*.0045+time*1.8+offset)*h*.065+Math.cos(xx*.008-time*.95+i)*h*.023;const yy=originY+wave+Math.sin(time+i)*h*.035;if(xx===-30)ctx.moveTo(xx,yy);else ctx.lineTo(xx,yy)}ctx.strokeStyle=i%3===0?'rgba(211,181,137,.095)':'rgba(116,226,210,.095)';ctx.lineWidth=i%3===0?1.2:1.5;ctx.shadowBlur=18;ctx.shadowColor=i%3===0?'rgba(211,181,137,.22)':'rgba(116,226,210,.26)';ctx.stroke()}ctx.shadowBlur=0;
+for(const p of particles){const py=(p.y-time*110*p.v+h)%h;const px=p.x+Math.sin(time*3+p.p)*14;ctx.beginPath();ctx.arc(px,py,p.r,0,Math.PI*2);ctx.fillStyle=p.teal?'rgba(151,235,217,.44)':'rgba(218,187,144,.45)';ctx.fill()}ctx.globalCompositeOperation='source-over';raf=requestAnimationFrame(draw)}
+window.addEventListener('resize',resize,{passive:true});if(!coarse)window.addEventListener('pointermove',e=>{mouse.x+=(e.clientX/innerWidth-mouse.x)*.13;mouse.y+=(e.clientY/innerHeight-mouse.y)*.13},{passive:true});document.addEventListener('visibilitychange',()=>{visible=!document.hidden;if(visible&&!reduced.matches)raf=requestAnimationFrame(draw);else cancelAnimationFrame(raf)});resize();if(!reduced.matches)raf=requestAnimationFrame(draw);else draw(0);
 })();
-
-// Nav
-var nav=document.getElementById('nav');
-window.addEventListener('scroll',function(){ nav.classList.toggle('stuck',scrollY>60); });
-
-// Reveal
-var io=new IntersectionObserver(function(entries){
-  entries.forEach(function(e){
-    if(e.isIntersecting){ e.target.classList.add('vis'); io.unobserve(e.target); }
-  });
-},{threshold:.1});
-document.querySelectorAll('.reveal,.feat-card,.step,.caso-card').forEach(function(el){ io.observe(el); });
-
-// CTA
-function handleCTA(){
-  var inp=document.getElementById('ctaEmail');
-  if(inp.value.indexOf('@')!==-1){
-    inp.value=''; inp.placeholder='Recibido. Te contactamos pronto.';
-    inp.style.color='#c8784a';
-  }
-}
 </script>
-</body>
-</html>
+<script>
+// LUMEN: organic vector morph. Every visible petal is a real SVG path,
+// not an embedded picture, bitmap reveal or traced dotted trajectory.
+(()=>{
+ const svg=document.querySelector('.intro-symbol .lumen-mark');
+ if(!svg||matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ const elements=[...svg.querySelectorAll('.lm-morph')];
+ const N=90, ease=x=>x*x*(3-2*x);
+ const shapes=elements.map((el,index)=>{
+   const final=el.getAttribute('d');
+   const temp=document.createElementNS('http://www.w3.org/2000/svg','path');
+   temp.setAttribute('d',final);svg.append(temp);
+   const length=temp.getTotalLength();
+   const target=Array.from({length:N},(_,i)=>{const p=temp.getPointAtLength(i*length/N);return [p.x,p.y]});
+   temp.remove();
+   return {el,final,target,index};
+ });
+ const origin=performance.now();let stopped=false;
+ document.getElementById('skip')?.addEventListener('click',()=>{stopped=true},{once:true});
+ function frame(now){
+   if(stopped||document.getElementById('intro')?.classList.contains('done'))return;
+   const t=(now-origin)/1000;
+   for(const o of shapes){
+     const delay=[.10,.55,.30,.95][o.index];
+     const p=ease(Math.max(0,Math.min(1,(t-delay)/4.0)));
+     if(p>=1){o.el.setAttribute('d',o.final);continue}
+     const pts=[];
+     for(let i=0;i<N;i++){
+       const a=i*2*Math.PI/N, wave=1+.12*Math.sin(a*3-t*2.2+o.index)+.05*Math.cos(a*5+t*1.5);
+       const cx=[17,26,174,163][o.index],cy=[47,68,117,139][o.index];
+       const rx=[22,17,25,18][o.index],ry=[30,28,22,15][o.index];
+       const x0=cx+Math.cos(a)*rx*wave+10*Math.sin(t*.9+o.index);
+       const y0=cy+Math.sin(a)*ry*wave+8*Math.cos(t*.85+o.index);
+       const [tx,ty]=o.target[i];
+       const ripple=(1-p)*p*3*Math.sin(a*4-t*3+o.index);
+       pts.push([x0*(1-p)+tx*p+Math.cos(a)*ripple,y0*(1-p)+ty*p+Math.sin(a)*ripple]);
+     }
+     let d=`M${pts[0][0].toFixed(2)} ${pts[0][1].toFixed(2)}`;
+     for(let i=0;i<N;i++){
+       const a=pts[(i-1+N)%N],b=pts[i],c=pts[(i+1)%N],e=pts[(i+2)%N];
+       d+=` C${(b[0]+(c[0]-a[0])/6).toFixed(2)} ${(b[1]+(c[1]-a[1])/6).toFixed(2)} ${(c[0]-(e[0]-b[0])/6).toFixed(2)} ${(c[1]-(e[1]-b[1])/6).toFixed(2)} ${c[0].toFixed(2)} ${c[1].toFixed(2)}`;
+     }
+     o.el.setAttribute('d',d+' Z');
+   }
+   if(t<5.4)requestAnimationFrame(frame);
+ }
+ requestAnimationFrame(frame);
+})();
+</script>
+</body></html>
